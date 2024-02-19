@@ -4,6 +4,10 @@
       "path": "/shop"
     },
     {
+      "name": "Dashboard",
+      "path": "/dashboard"
+    },
+    {
       "name": "Contact",
       "path": "/contact"
     }

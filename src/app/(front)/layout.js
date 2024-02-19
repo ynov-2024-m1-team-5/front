@@ -19,7 +19,9 @@ export default function RootLayout({ children }) {
             <body
                 className={`${dm_serif_display.className} ${work_sans.className}`}
             >
+                <Header />
                 <main>{children}</main>
+                <Footer />
             </body>
         </html>
     );

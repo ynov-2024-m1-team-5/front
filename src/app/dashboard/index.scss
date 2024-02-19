@@ -1,0 +1,29 @@
+.wrapper {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 0;
+}
+
+.left {
+    background-color: red;
+    height: 100%;
+}
+.right {
+    background-color: blue;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 10% 20% 70%;
+}
+
+.right_item_1 {
+    background-color: aliceblue;
+}
+
+.right_item_2 {
+    background-color: yellow;
+}
+
+.right_item_3 {
+    background-color: green;
+}

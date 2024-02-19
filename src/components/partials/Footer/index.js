@@ -8,7 +8,9 @@ const Index = () => {
             <div className="flex justify-between">
                 <div className="p-6 w-[20%]">
                     <Link href="/">
-                        <span className="font-semibold text-2xl font-bold text-white">mystore.</span>
+                        <span className="font-semibold text-2xl  text-white">
+                            mystore.
+                        </span>
                     </Link>
                 </div>
                 <div className="w-[20%]">
@@ -17,6 +19,6 @@ const Index = () => {
             </div>
         </footer>
     );
-}
+};
 
 export default Index;
