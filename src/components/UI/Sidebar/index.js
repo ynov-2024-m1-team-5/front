@@ -7,6 +7,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import ViewInArOutlinedIcon from "@mui/icons-material/ViewInArOutlined";
 import "./index.scss";
+import Link from "next/link";
 
 const Index = () => {
     const [selectedLink, setSelectedLink] = useState("dashboard");
@@ -18,8 +19,9 @@ const Index = () => {
     return (
         <aside id="sidebar">
             <div className="sidebar-title">
-                <div className="sidebar-brand">My Store</div>
-                <span className="icon close_icon">X</span>
+                <Link href="/">
+                    <span className=" text-2xl font-bold">Mystore.</span>
+                </Link>
             </div>
 
             <ul className="sidebar-list">
@@ -28,10 +30,15 @@ const Index = () => {
                         selectedLink == "dashboard" ? "active" : ""
                     }`}
                 >
-                    <DashboardIcon />
-                    <a href="#" onClick={() => handleLinkClick("dashboard")}>
-                        Dashboard
-                    </a>
+                    <div className="left">
+                        <DashboardIcon />
+                        <a
+                            href="#"
+                            onClick={() => handleLinkClick("dashboard")}
+                        >
+                            Dashboard
+                        </a>
+                    </div>
                     <ChevronRightIcon />
                 </li>
                 <li
@@ -39,10 +46,12 @@ const Index = () => {
                         selectedLink === "products" ? "active" : ""
                     }`}
                 >
-                    <ViewInArOutlinedIcon />
-                    <a href="#" onClick={() => handleLinkClick("products")}>
-                        Products
-                    </a>
+                    <div className="left">
+                        <ViewInArOutlinedIcon />
+                        <a href="#" onClick={() => handleLinkClick("products")}>
+                            Products
+                        </a>
+                    </div>
                     <ChevronRightIcon />
                 </li>
                 <li
@@ -50,10 +59,15 @@ const Index = () => {
                         selectedLink === "customers" ? "active" : ""
                     }`}
                 >
-                    <PeopleIcon />
-                    <a href="#" onClick={() => handleLinkClick("customers")}>
-                        Clients
-                    </a>
+                    <div className="left">
+                        <PeopleIcon />
+                        <a
+                            href="#"
+                            onClick={() => handleLinkClick("customers")}
+                        >
+                            Clients
+                        </a>
+                    </div>
                     <ChevronRightIcon />
                 </li>
             </ul>
