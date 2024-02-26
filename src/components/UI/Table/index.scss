@@ -1,43 +1,35 @@
-.custom-table {
-    width: 100%;
-    // border-collapse: collapse;
-    margin-top: 20px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
+.table {
+    border-radius: 20px;
+    background: white;
+    padding-bottom: 10px;
+    .cellWrapper {
+        display: flex;
+        align-items: center;
+
+        .image {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+    }
+
+    .status {
+        padding: 5px;
+        border-radius: 5px;
+
+        &.Approved {
+            color: green;
+            background-color: rgba(0, 128, 0, 0.151);
+        }
+        &.Pending {
+            color: goldenrod;
+            background-color: rgba(189, 189, 3, 0.103);
+        }
+    }
 }
 
-table {
-    width: 100%;
+.tableCell {
     height: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin: 0 auto;
-}
-
-.custom-table th,
-.custom-table td {
-    // border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-// .custom-table th {
-//     // background-color: #f2f2f2;
-// }
-
-.custom-table button {
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.icons {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-.items {
-    justify-content: center;
-    align-items: center;
 }

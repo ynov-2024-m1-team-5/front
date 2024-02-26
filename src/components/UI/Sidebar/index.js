@@ -32,12 +32,12 @@ const Index = () => {
                 >
                     <div className="left">
                         <DashboardIcon />
-                        <a
-                            href="#"
+                        <Link
+                            href="/dashboard"
                             onClick={() => handleLinkClick("dashboard")}
                         >
                             Dashboard
-                        </a>
+                        </Link>
                     </div>
                     <ChevronRightIcon />
                 </li>
@@ -48,9 +48,12 @@ const Index = () => {
                 >
                     <div className="left">
                         <ViewInArOutlinedIcon />
-                        <a href="#" onClick={() => handleLinkClick("products")}>
+                        <Link
+                            href="/dashboard/products"
+                            onClick={() => handleLinkClick("products")}
+                        >
                             Products
-                        </a>
+                        </Link>
                     </div>
                     <ChevronRightIcon />
                 </li>
@@ -62,7 +65,7 @@ const Index = () => {
                     <div className="left">
                         <PeopleIcon />
                         <a
-                            href="#"
+                            href="/dashboard/clients"
                             onClick={() => handleLinkClick("customers")}
                         >
                             Clients
