@@ -69,17 +69,26 @@ const List = () => {
             method: "Online",
             status: "Pending",
         },
+        {
+            id: 2342355,
+            product: "ASUS ROG Strix",
+            img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
+            customer: "Harold Carol",
+            date: "1 March",
+            amount: 2000,
+            method: "Online",
+            status: "Pending",
+        },
     ];
     return (
         <TableContainer component={Paper} className="table">
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className="tableCell">Tracking ID</TableCell>
                         <TableCell className="tableCell">Product</TableCell>
-                        <TableCell className="tableCell">Customer</TableCell>
-                        <TableCell className="tableCell">Date</TableCell>
-                        <TableCell className="tableCell">Amount</TableCell>
+                        <TableCell className="tableCell">Prix</TableCell>
+                        <TableCell className="tableCell">Description</TableCell>
+                        <TableCell className="tableCell">Stock</TableCell>
                         <TableCell className="tableCell">
                             Payment Method
                         </TableCell>
@@ -89,9 +98,6 @@ const List = () => {
                 <TableBody>
                     {rows.map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell className="tableCell">
-                                {row.id}
-                            </TableCell>
                             <TableCell className="tableCell">
                                 <div className="cellWrapper">
                                     <img

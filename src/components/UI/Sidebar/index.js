@@ -1,4 +1,3 @@
-// index.jsx
 "use client";
 
 import React, { useState } from "react";
@@ -10,7 +9,7 @@ import "./index.scss";
 import Link from "next/link";
 
 const Index = () => {
-    const [selectedLink, setSelectedLink] = useState("dashboard");
+    const [selectedLink, setSelectedLink] = useState("dasboard");
 
     const handleLinkClick = (link) => {
         setSelectedLink(link);
@@ -57,19 +56,20 @@ const Index = () => {
                     </div>
                     <ChevronRightIcon />
                 </li>
+
                 <li
                     className={`sidebar-list-item ${
-                        selectedLink === "customers" ? "active" : ""
+                        selectedLink === "clients" ? "active" : ""
                     }`}
                 >
                     <div className="left">
                         <PeopleIcon />
-                        <a
+                        <Link
                             href="/dashboard/clients"
-                            onClick={() => handleLinkClick("customers")}
+                            onClick={() => handleLinkClick("clients")}
                         >
                             Clients
-                        </a>
+                        </Link>
                     </div>
                     <ChevronRightIcon />
                 </li>
