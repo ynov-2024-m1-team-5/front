@@ -1,58 +1,145 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+"use client";
+import React, { useState } from "react";
+import "./index.scss";
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
+function Index() {
+    const [data, setData] = useState([
+        {
+            id: 1,
+            name: "Frozen yoghurt",
+            calories: 159,
+            fat: 6.0,
+            carbs: 24,
+            protein: 1,
+        },
+        {
+            id: 2,
+            name: "Ice cream sandwich",
+            calories: 237,
+            fat: 9.0,
+            carbs: 37,
+            protein: 1,
+        },
+        {
+            id: 3,
+            name: "Eclair",
+            calories: 262,
+            fat: 16.0,
+            carbs: 24,
+            protein: 1,
+        },
+        {
+            id: 4,
+            name: "Cupcake",
+            calories: 305,
+            fat: 3.7,
+            carbs: 67,
+            protein: 1,
+        },
+        {
+            id: 5,
+            name: "Gingerbread",
+            calories: 356,
+            fat: 16.0,
+            carbs: 49,
+            protein: 1,
+        },
+        {
+            id: 5,
+            name: "Gingerbread",
+            calories: 356,
+            fat: 16.0,
+            carbs: 49,
+            protein: 1,
+        },
+        {
+            id: 6,
+            name: "Gingerbread",
+            calories: 356,
+            fat: 16.0,
+            carbs: 49,
+            protein: 1,
+        },
+    ]);
 
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+    const handleDelete = (id) => {
+        const updatedData = data.filter((item) => item.id !== id);
+        setData(updatedData);
+    };
 
-export default function BasicTable() {
+    const handleEdit = (id) => {
+        // Implémentez la logique de modification ici
+        console.log(`Edit item with id ${id}`);
+    };
+
     return (
-        <TableContainer component={Paper} style={{ height: "100%" }}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            sx={{
-                                "&:last-child td, &:last-child th": {
-                                    border: 0,
-                                },
-                            }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                        </TableRow>
+        <div className="custom-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom du produit</th>
+                        <th>Prix</th>
+                        <th>Description</th>
+                        <th>Stock</th>
+                        <th>Activated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((row) => (
+                        <tr className="items" key={row.id}>
+                            <td>{row.name}</td>
+                            <td>{row.calories}</td>
+                            <td>{row.fat}</td>
+                            <td>{row.carbs}</td>
+                            <td>{row.protein}</td>
+                            <td className="icons">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="30"
+                                    height="28"
+                                    viewBox="0 0 30 28"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M13.0066 6.90476H8.00659C7.34355 6.90476 6.70767 7.15059 6.23882 7.58818C5.76998 8.02576 5.50659 8.61925 5.50659 9.23809V20.9048C5.50659 21.5236 5.76998 22.1171 6.23882 22.5547C6.70767 22.9923 7.34355 23.2381 8.00659 23.2381H20.5066C21.1696 23.2381 21.8055 22.9923 22.2744 22.5547C22.7432 22.1171 23.0066 21.5236 23.0066 20.9048V16.2381M18.0066 4.57143H25.5066M25.5066 4.57143V11.5714M25.5066 4.57143L13.0066 16.2381"
+                                        stroke="#0C2D57"
+                                        stroke-width="2.3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="28"
+                                    height="25"
+                                    viewBox="0 0 28 25"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M23.8358 12.2512C23.5347 12.2512 23.246 12.3588 23.0332 12.5503C22.8203 12.7417 22.7007 13.0014 22.7007 13.2722V19.3978C22.7007 19.6685 22.5811 19.9282 22.3683 20.1197C22.1554 20.3112 21.8667 20.4187 21.5657 20.4187H5.67519C5.37416 20.4187 5.08546 20.3112 4.8726 20.1197C4.65974 19.9282 4.54015 19.6685 4.54015 19.3978V5.10468C4.54015 4.83391 4.65974 4.57423 4.8726 4.38277C5.08546 4.1913 5.37416 4.08374 5.67519 4.08374H12.4854C12.7864 4.08374 13.0751 3.97618 13.288 3.78472C13.5009 3.59325 13.6204 3.33357 13.6204 3.06281C13.6204 2.79204 13.5009 2.53236 13.288 2.34089C13.0751 2.14943 12.7864 2.04187 12.4854 2.04187H5.67519C4.7721 2.04187 3.906 2.36456 3.26741 2.93895C2.62883 3.51333 2.27008 4.29237 2.27008 5.10468V19.3978C2.27008 20.2101 2.62883 20.9891 3.26741 21.5635C3.906 22.1379 4.7721 22.4606 5.67519 22.4606H21.5657C22.4688 22.4606 23.3349 22.1379 23.9735 21.5635C24.6121 20.9891 24.9708 20.2101 24.9708 19.3978V13.2722C24.9708 13.0014 24.8512 12.7417 24.6384 12.5503C24.4255 12.3588 24.1368 12.2512 23.8358 12.2512ZM6.81023 13.0271V17.3559C6.81023 17.6267 6.92981 17.8864 7.14267 18.0778C7.35553 18.2693 7.64423 18.3768 7.94526 18.3768H12.7578C12.9072 18.3776 13.0553 18.3519 13.1936 18.3011C13.3319 18.2503 13.4576 18.1754 13.5637 18.0808L21.4181 11.0057L24.6416 8.16748C24.748 8.07258 24.8325 7.95966 24.8901 7.83525C24.9477 7.71084 24.9774 7.5774 24.9774 7.44262C24.9774 7.30784 24.9477 7.1744 24.8901 7.04999C24.8325 6.92558 24.748 6.81266 24.6416 6.71776L19.8291 2.33794C19.7236 2.24225 19.598 2.1663 19.4597 2.11447C19.3214 2.06264 19.1731 2.03595 19.0232 2.03595C18.8734 2.03595 18.725 2.06264 18.5867 2.11447C18.4484 2.1663 18.3229 2.24225 18.2173 2.33794L15.0165 5.22719L7.13939 12.3023C7.03419 12.3977 6.95096 12.5108 6.89448 12.6352C6.83799 12.7596 6.80936 12.8928 6.81023 13.0271ZM19.0232 4.50232L22.2354 7.39157L20.6236 8.8413L17.4115 5.95205L19.0232 4.50232ZM9.0803 13.4457L15.8111 7.39157L19.0232 10.2808L12.2924 16.335H9.0803V13.4457Z"
+                                        fill="#0C2D57"
+                                    />
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="28"
+                                    height="25"
+                                    viewBox="0 0 28 25"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M7.94527 21.4397C7.321 21.4397 6.78678 21.2399 6.3426 20.8404C5.89842 20.4408 5.67595 19.96 5.6752 19.3978V6.12561H4.54016V4.08374H10.2153V3.06281H17.0256V4.08374H22.7007V6.12561H21.5657V19.3978C21.5657 19.9593 21.3436 20.4402 20.8994 20.8404C20.4553 21.2406 19.9207 21.4403 19.2956 21.4397H7.94527ZM19.2956 6.12561H7.94527V19.3978H19.2956V6.12561ZM10.2153 17.3559H12.4854V8.16748H10.2153V17.3559ZM14.7555 17.3559H17.0256V8.16748H14.7555V17.3559Z"
+                                        fill="#0C2D57"
+                                    />
+                                </svg>
+                            </td>
+                        </tr>
                     ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                </tbody>
+            </table>
+        </div>
     );
 }
+
+export default Index;

@@ -2,6 +2,7 @@ import React from "react";
 import "./index.scss";
 import Sidebar from "../../components/UI/Sidebar/index.js";
 import Table from "../../components/UI/Table/index.js";
+import Headash from "../../components/UI/Headash/index.js";
 
 const Page = () => {
     return (
@@ -15,20 +16,7 @@ const Page = () => {
                     <button className="button">Add product</button>
                 </div>
                 <div className="right_item_2">
-                    <div className="item_2">
-                        <div className="items">
-                            <p className="title">Totals products</p>
-                            <p className="number">100</p>
-                        </div>
-                        <div className="items">
-                            <p className="title">Clients</p>
-                            <p className="number">100</p>
-                        </div>
-                        <div className="items">
-                            <p className="title">Active Now</p>
-                            <p className="number">57</p>
-                        </div>
-                    </div>
+                    <Headash />
                 </div>
                 <div className="right_item_3">
                     <div className="item_3">
