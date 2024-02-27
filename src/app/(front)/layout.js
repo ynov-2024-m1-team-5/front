@@ -15,14 +15,10 @@ const work_sans = Work_Sans({
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
-            <body
-                className={`${dm_serif_display.className} ${work_sans.className}`}
-            >
-                <Header />
-                <main>{children}</main>
-                <Footer />
-            </body>
-        </html>
+        <div className={`${dm_serif_display.className} ${work_sans.className}`}>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+        </div>
     );
 }
