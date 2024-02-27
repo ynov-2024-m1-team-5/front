@@ -43,23 +43,23 @@ const Index = () => {
                         <path
                             d="M46.0666 53.75L48.5999 56.2834L53.6666 51.2167"
                             stroke="white"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M42.267 40.117C42.1003 40.1003 41.9003 40.1003 41.717 40.117C37.7503 39.9837 34.6003 36.7337 34.6003 32.7337C34.5836 28.6503 37.9003 25.3337 41.9836 25.3337C46.067 25.3337 49.3836 28.6503 49.3836 32.7337C49.3836 36.7337 46.217 39.9837 42.267 40.117Z"
                             stroke="white"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M41.9831 58.3498C38.9498 58.3498 35.9331 57.5832 33.6331 56.0498C29.5998 53.3498 29.5998 48.9498 33.6331 46.2665C38.2165 43.1998 45.7331 43.1998 50.3165 46.2665"
                             stroke="white"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                     </svg>
                 </div>
@@ -87,30 +87,30 @@ const Index = () => {
                         <path
                             d="M32.27 24.5H51.7125C57.9425 24.5 59.5 26.0575 59.5 32.27V43.3475C59.5 49.5775 57.9425 51.1175 51.73 51.1175H32.27C26.0575 51.135 24.5 49.5775 24.5 43.365V32.27C24.5 26.0575 26.0575 24.5 32.27 24.5Z"
                             stroke="white"
-                            stroke-width="2.625"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.625"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M42 51.1345V59.4995"
                             stroke="white"
-                            stroke-width="2.625"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.625"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M24.5 43.75H59.5"
                             stroke="white"
-                            stroke-width="2.625"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.625"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M34.125 59.5H49.875"
                             stroke="white"
-                            stroke-width="2.625"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2.625"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                     </svg>
                 </div>
