@@ -1,6 +1,6 @@
 import "@/assets/styles/style.scss";
 import { DM_Serif_Display, Work_Sans } from "next/font/google";
-import styles from "./index.module.scss";
+import styles from "./page.module.scss";
 import Sidebar from "../../components/UI/Sidebar/index.js";
 import Headash from "../../components/UI/Headash/index.js";
 

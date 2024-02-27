@@ -6,6 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Link from "next/link";
+import Image from "next/image";
 
 const List = () => {
     const rows = [
@@ -89,10 +91,7 @@ const List = () => {
                         <TableCell className="tableCell">Prix</TableCell>
                         <TableCell className="tableCell">Description</TableCell>
                         <TableCell className="tableCell">Stock</TableCell>
-                        <TableCell className="tableCell">
-                            Payment Method
-                        </TableCell>
-                        <TableCell className="tableCell">Status</TableCell>
+                        <TableCell className="tableCell">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -117,13 +116,36 @@ const List = () => {
                             <TableCell className="tableCell">
                                 {row.amount}
                             </TableCell>
-                            <TableCell className="tableCell">
-                                {row.method}
-                            </TableCell>
-                            <TableCell className="tableCell">
-                                <span className={`status ${row.status}`}>
-                                    {row.status}
-                                </span>
+
+                            <TableCell className="test">
+                                <Link
+                                    href={`/dashboard/clients/${row.id}`}
+                                    key={row.id}
+                                >
+                                    <Image
+                                        src="/view.svg"
+                                        alt="view"
+                                        className="image"
+                                        width={28}
+                                        height={28}
+                                    />
+                                </Link>
+
+                                <Image
+                                    src="/edit.svg"
+                                    alt="view"
+                                    className="image"
+                                    width={28}
+                                    height={28}
+                                />
+
+                                <Image
+                                    src="/delete.svg"
+                                    alt="view"
+                                    className="image"
+                                    width={28}
+                                    height={28}
+                                />
                             </TableCell>
                         </TableRow>
                     ))}
