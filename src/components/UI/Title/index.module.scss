@@ -1,0 +1,23 @@
+.wrapper {
+    text-align: center;
+    margin: 20px 0px;
+    h1 {
+        font-size: 45px;
+    }
+    h2 {
+        font-size: 35px;
+        font-weight: bold;
+    }
+    h3 {
+        font-size: 45px;
+        text-align: left;
+    }
+
+    /* Media queries */
+    @media screen and (max-width: 768px) {
+        h3 {
+            font-size: 30px;
+            text-align: center;
+        }
+    }
+}
