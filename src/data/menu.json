@@ -5,7 +5,15 @@
     },
  
     {
-      "name": "Connexion",
-      "path": "/auth/login"
+      "name": "Dashboard",
+      "path": "/dashboard"
+    },
+    {
+      "name": "Register",
+      "path": "/auth/register"
+    },
+    {
+      "name": "Contact",
+      "path": "/contact"
     }
 ]

@@ -22,7 +22,6 @@
         color: white;
         border-radius: 10px;
         background: #fc6736;
-        margin: 0 auto;
         &:hover {
             background: #fc6736;
             border: 1px solid white;
@@ -57,7 +56,18 @@
         border: none;
         padding: 5px 20px;
     }
-
+    &__profile {
+        border: 1px solid #013914;
+        width: 15%;
+        color: #013914;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        &:hover {
+            background: #013914;
+            border: 1px solid white;
+            color: white;
+        }
+    }
     &__tertiary {
         width: 25%;
         background: white;
