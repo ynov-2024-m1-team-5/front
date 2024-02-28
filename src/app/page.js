@@ -10,6 +10,5 @@ export default function Home() {
             link="/shop"
             link_text="Shop Now"
         />
-    )
+    );
 }
-
