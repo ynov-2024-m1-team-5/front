@@ -4,7 +4,7 @@ import Image from "next/image";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 
-const Index = () => {
+const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleFavorite = () => {
@@ -16,7 +16,7 @@ const Index = () => {
                 isFavorite ? "favorited" : ""
             }`}
         >
-            <Link className="group/thumbnail thumbnail" href={`/shop/`}>
+            <Link className="group/thumbnail thumbnail" href="">
                 <div
                     className={`overflow-hidden w-[250px] h-[300px] relative ${
                         isFavorite ? "favorited" : ""
@@ -25,7 +25,7 @@ const Index = () => {
                     <Image
                         className=""
                         alt="trans"
-                        src="https://media.cdnws.com/_i/111316/1473/1037/77/4.jpeg"
+                        src=""
                         fill
                         sizes="100%"
                         style={{ objectFit: "cover" }}
@@ -41,12 +41,12 @@ const Index = () => {
                 </div>
             </Link>
             <div className="py-5">
-                <h2 className="text-md mb-3">test</h2>
-                <p className="font-semibold font-s">100 €</p>
+                <h2 className="text-md mb-3">{product.name}</h2>
+                <p className="font-semibold font-s">{product.price} €</p>
                 <div className="opacity-0 group-hover/card:opacity-100 transition ease-in-out delay-150">
                     <Link
                         className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white"
-                        href={`/shop/`}
+                        href={`/shop/${product.id}`}
                     >
                         Voir le produit
                     </Link>
