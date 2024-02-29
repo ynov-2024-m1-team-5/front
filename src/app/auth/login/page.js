@@ -6,6 +6,9 @@ import Button from "@/components/UI/Button/";
 import Title from "@/components/UI/Title";
 // import Loading from "@/components/UI/Loading";
 import styles from "./page.module.scss";
+import {login} from "@/services/api/auth.api";
+
+
 // import Notification from "@/components/UI/Notification";
 
 const Page = () => {
@@ -21,6 +24,34 @@ const Page = () => {
             [e.target.name]: e.target.value,
         });
     };
+
+    // const submitLogin = (e) => {
+    //     const { email, password } = userForm;
+    //     console.log('TEST : '+JSON.stringify(userForm));
+
+    //     const bodyFormData = new FormData();
+    //     bodyFormData.append("username", email);
+    //     bodyFormData.append("password", password);
+    //     console.log('TEST : '+JSON.stringify(bodyFormData));
+    //     login(bodyFormData);
+    //     e.preventDefault();
+    // };
+
+    const submitLogin = (e) => {
+        e.preventDefault();
+        const { email, password } = userForm;
+    
+        console.log('User Form:', userForm);
+        
+        const bodyFormData = new FormData();
+        bodyFormData.append("username", email);
+        bodyFormData.append("password", password);
+    
+        console.log('FormData:', bodyFormData);
+        
+        login(bodyFormData);
+    };
+    
 
     return (
         <>
