@@ -1,25 +1,18 @@
 "use client";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button/";
 import Title from "@/components/UI/Title";
 // import Loading from "@/components/UI/Loading";
 import styles from "./page.module.scss";
-import { login } from "@/services/api/auth.api";
-import { useRouter } from "next/navigation";
-import { UserContext } from "@/context/UserContext";
-
 // import Notification from "@/components/UI/Notification";
 
 const Page = () => {
-    const router = useRouter();
     const [userForm, setUserForm] = useState({
-        username: "",
+        email: "",
         password: "",
     });
-
-    const { setToken } = useContext(UserContext);
 
     //ce code est à mettre dans le fichier useFetch.js
     const handleChange = (e) => {
@@ -29,36 +22,6 @@ const Page = () => {
         });
     };
 
-    const submitLogin = async (e) => {
-        e.preventDefault();
-        const { username, password } = userForm;
-
-        console.log("User Form:", userForm);
-
-        const bodyFormData = new FormData();
-        bodyFormData.append("username", username);
-        bodyFormData.append("password", password);
-
-    
-//         for(const value of bodyFormData.values()){
-//             console.log('FormData value:', value);
-//         }
-        
-//         login(bodyFormData);
-
-
-        try {
-            const token = await login(bodyFormData);
-            setToken(token);
-            localStorage.setItem("token", token);
-
-            router.push("/shop");
-        } catch (error) {
-            console.log("Error:", error);
-        }
-
-    };
-
     return (
         <>
             {/* <Loading isLoad={loading} /> */}
@@ -66,12 +29,12 @@ const Page = () => {
             <form onSubmit={(e) => submitLogin(e)}>
                 <Input
                     label="Email"
-                    type="text"
-                    name="username"
+                    type="email"
+                    name="email"
                     placeholder="veuillez saisir votre email"
                     isRequired={true}
                     onChange={(e) => handleChange(e)}
-                    value={userForm.username}
+                    value={userForm.email}
                 />
                 <Input
                     label="Password"
