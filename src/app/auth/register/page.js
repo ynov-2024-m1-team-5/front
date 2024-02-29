@@ -5,19 +5,18 @@ import Input from "@/components/UI/Input";
 import Title from "@/components/UI/Title";
 import Button from "@/components/UI/Button";
 import Link from "next/link";
+import {saveUser} from "@/services/api/auth.api";
 
 const Index = () => {
     const [userForm, setUserForm] = useState({
-        firstName: "",
-        lastName: "",
+        first_name: "",
+        last_name: "",
         password: "",
         email: "",
         phone: "",
-        address: {
-            city: "",
-            zipCode: "",
-            street: "",
-        },
+        city: "",
+        zipcode: "",
+        address: "",
     });
 
     // cette fonction permet de mettre à jour le state userForm et de gérer les changements dans les inputs
@@ -26,19 +25,13 @@ const Index = () => {
             ...userForm,
             [e.target.name]: e.target.value,
         });
-        if (e.target.name === "zipCode") {
-            userForm.address.zipCode = e.target.value;
-        }
-        if (e.target.name === "city") {
-            userForm.address.city = e.target.value;
-        }
-        if (e.target.name === "street") {
-            userForm.address.street = e.target.value;
-        }
+        
     };
+
 
     // cette fonction permet de soumettre le formulaire d'inscription et de gérer les erreurs et e.preventDefault() permet de ne pas recharger la page
     const submitRegister = (e) => {
+        saveUser(userForm);
         e.preventDefault();
     };
 
@@ -52,20 +45,20 @@ const Index = () => {
                     <Input
                         label="Prénom"
                         type="text"
-                        name="firstName"
+                        name="first_name"
                         placeholder="prénom"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        value={userForm.firstName}
+                        value={userForm.first_name}
                     />
                     <Input
                         label="Nom"
                         type="text"
-                        name="lastName"
+                        name="last_name"
                         placeholder="Nom"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        value={userForm.lastName}
+                        value={userForm.last_name}
                     />
                 </div>
                 <div className={styles.username}>
@@ -81,22 +74,22 @@ const Index = () => {
                     <Input
                         label="Code postal"
                         type="number"
-                        name="zipCode"
+                        name="zipcode"
                         placeholder="Code postal"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        value={userForm.address.zipCode}
+                        value={userForm.zipcode}
                     />
                 </div>
                 <div className={styles.username}>
                     <Input
                         label="Rue"
                         type="text"
-                        name="street"
-                        placeholder="Rue"
+                        name="address"
+                        placeholder="11 Rue saint honoré"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        value={userForm.address.street}
+                        value={userForm.address}
                     />
                     <Input
                         label="Ville"
@@ -105,7 +98,7 @@ const Index = () => {
                         placeholder="Paris"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        value={userForm.address.city}
+                        value={userForm.city}
                     />
                 </div>
 
