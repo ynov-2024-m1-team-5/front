@@ -16,7 +16,7 @@ const Index = () => {
                 isFavorite ? "favorited" : ""
             }`}
         >
-            <Link className="group/thumbnail thumbnail" href={`/shop/`}>
+            <Link className="group/thumbnail thumbnail" href="">
                 <div
                     className={`overflow-hidden w-[250px] h-[300px] relative ${
                         isFavorite ? "favorited" : ""
