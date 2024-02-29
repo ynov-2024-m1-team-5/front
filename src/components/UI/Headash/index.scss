@@ -1,0 +1,39 @@
+.item_2 {
+    width: 80%;
+    height: 90%;
+    background: white;
+    margin: 8px auto;
+    text-align: center;
+    box-shadow: 0px 10px 60px rgba(225.83, 236.19, 248.63, 0.5);
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .section {
+        display: flex;
+        gap: 10px;
+    }
+
+    .items {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .title {
+            // Total Products
+            color: #acacac;
+            font-size: 15px;
+            font-family: "Poppins";
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+        .number {
+            // 5,423
+            color: #0c2d57;
+            font-size: 30px;
+            font-family: "Poppins";
+            font-weight: 600;
+            line-height: 32px;
+            word-wrap: break-word;
+        }
+    }
+}
