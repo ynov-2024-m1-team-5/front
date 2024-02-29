@@ -1,0 +1,107 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    padding: 5px 8px;
+    width: 50%;
+    // margin: 0 auto;
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: 0.3s all;
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    &__primary {
+        width: 30%;
+        border: 1px solid white;
+        color: white;
+        border-radius: 10px;
+        background: #fc6736;
+        margin: 0 auto;
+        &:hover {
+            background: #fc6736;
+            border: 1px solid white;
+            color: white;
+        }
+    }
+    &__secondary {
+        background: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        &:hover {
+            background: #013914;
+            color: white;
+            border: none;
+        }
+    }
+    &__update {
+        background: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        background: #013914;
+        color: white;
+        border: none;
+    }
+    &__delete {
+        background: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        background: red;
+        margin: 0;
+        color: white;
+        border: none;
+        padding: 5px 20px;
+    }
+
+    &__tertiary {
+        width: 25%;
+        background: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        &:hover {
+            background: #013914;
+            color: white;
+            border: none;
+        }
+    }
+    &__warning {
+        background: red;
+        border: 1px solid white;
+        color: white;
+        width: 20%;
+    }
+    &__search {
+        display: unset;
+        width: 15%;
+        height: 45px;
+        border-radius: 10px;
+        background-color: #1dbf73;
+        color: white;
+        text-align: center;
+        font-size: 18px;
+    }
+    &__default {
+        width: 10%;
+        color: #013914;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .btn {
+        width: 80%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .btn {
+        width: 100%;
+        font-size: 14px;
+        justify-content: center;
+    }
+}
