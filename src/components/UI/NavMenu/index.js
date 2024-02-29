@@ -46,14 +46,14 @@ const Index = ({ menu, color, visibleWishlist }) => {
 
                 
                 <li>
-                    <a href="/panier">
+                    <a href="/wishlist">
                         <svg
                             viewBox="0 0 24 24"
                             width="1em"
                             height="1em"
                             fill="currentColor"
                             aria-labelledby="wish-list-:r0:"
-                            class="zds-icon RC794g X9n9TI DlJ4rT _5Yd-hZ HlZ_Tf I_qHp3"
+                            className="zds-icon RC794g X9n9TI DlJ4rT _5Yd-hZ HlZ_Tf I_qHp3"
                             focusable="false"
                             aria-hidden="false"
                             role="img"
