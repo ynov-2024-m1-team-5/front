@@ -5,7 +5,7 @@ import menu from "@/data/menu.json";
 const Index = () => {
     return (
         <footer className="bg-black py-12 pl-6 pr-6">
-            <div className="flex justify-between">
+            <div className="flex justify-center">
                 <div className="p-6 w-[20%]">
                     <Link href="/">
                         <span className="font-semibold text-2xl  text-white">
