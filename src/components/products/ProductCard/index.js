@@ -2,13 +2,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { addFavorite } from "@/services/api/wishlist.api.js";
+import WishlistContext from "@/context/WishlistContext";
 
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
+    const { user } = useContext(WishlistContext);
+
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
+        addFavorite(user.id, product.id);
     };
     return (
         <div
@@ -25,7 +30,7 @@ const Index = ({ product }) => {
                     <Image
                         className=""
                         alt="trans"
-                        src=""
+                        src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=600"
                         fill
                         sizes="100%"
                         style={{ objectFit: "cover" }}
