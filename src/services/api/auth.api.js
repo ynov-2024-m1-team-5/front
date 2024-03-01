@@ -83,27 +83,57 @@ export async function deleteCustomer(id) {
     }
 }
 
+// export async function login(bodyFormData) {
+//     console.log("IN : "+JSON.stringify(bodyFormData));
+
+//     try {
+//         const res = await fetch(
+//             `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}token`,
+//             {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/x-www-form-urlencoded"
+//                 },
+//                 body: bodyFormData
+//             }
+//         );
+
+//         const data = await res.json();
+//         //window.location.href = "/shop";
+
+//         return data;
+//     } catch (err) {
+//         return err;
+//     }
+// }
+
 export async function login(bodyFormData) {
-    console.log("IN : "+JSON.stringify(bodyFormData));
 
     try {
+        const formDataString = new URLSearchParams(bodyFormData).toString();
+
+        const contentLength = formDataString.length;
+
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}token/`,
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}token`,
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": contentLength
                 },
-                body: bodyFormData
+                body: formDataString
             }
         );
 
         const data = await res.json();
-        //window.location.href = "/shop";
+        console.log(data);
+        if(data != null){
+            window.location.href = "/shop";
+        }
 
         return data;
     } catch (err) {
         return err;
     }
 }
-
