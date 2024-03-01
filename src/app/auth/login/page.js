@@ -47,7 +47,9 @@ const Page = () => {
         bodyFormData.append("username", email);
         bodyFormData.append("password", password);
     
-        console.log('FormData:', bodyFormData);
+        for(const value of bodyFormData.values()){
+            console.log('FormData value:', value);
+        }
         
         login(bodyFormData);
     };
