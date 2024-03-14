@@ -2,12 +2,7 @@
 import { createContext, useState, useEffect } from "react";
 import { getWishlist } from "@/services/api/wishlist.api.js";
 
-const WishlistContext = createContext({
-    products: [],
-    user: {},
-});
-
-export default WishlistContext;
+export const WishlistContext = createContext();
 
 export const WishlistContextProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
@@ -20,8 +15,9 @@ export const WishlistContextProvider = ({ children }) => {
             setLoading(true);
             try {
                 let wishlist = await getWishlist();
+                console.log("wish", wishlist);
                 if (wishlist) {
-                    setProducts(wishlist);
+                    setProducts(wishlist || []);
                 }
             } catch (err) {
                 setError(err);
