@@ -1,7 +1,8 @@
+"use client";
 import React, { useContext } from "react";
 import ProductCard from "@/components/products/ProductCard";
 import TitlePage from "@/components/UI/TitlePage";
-import WishlistContext from "@/context/WishlistContext";
+import { WishlistContext } from "@/context/WishlistContext";
 
 const Page = () => {
     const { products } = useContext(WishlistContext);

@@ -12,7 +12,8 @@ export async function addFavorite(customerId, productId) {
         const data = await res.json();
         return data.success;
     } catch (err) {
-        return err;
+        // return err;
+        console.error(err);
     }
 }
 
@@ -31,7 +32,9 @@ export async function getWishlist(customerId) {
         );
         const data = await res.json();
         return data.products;
+        console.log(data);
     } catch (err) {
-        return err;
+        console.error(err);
+        // return err;
     }
 }
