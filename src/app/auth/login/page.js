@@ -26,18 +26,6 @@ const Page = () => {
         });
     };
 
-    // const submitLogin = (e) => {
-    //     const { email, password } = userForm;
-    //     console.log('TEST : '+JSON.stringify(userForm));
-
-    //     const bodyFormData = new FormData();
-    //     bodyFormData.append("username", email);
-    //     bodyFormData.append("password", password);
-    //     console.log('TEST : '+JSON.stringify(bodyFormData));
-    //     login(bodyFormData);
-    //     e.preventDefault();
-    // };
-
     const submitLogin = async (e) => {
         e.preventDefault();
         const { username, password } = userForm;
@@ -48,10 +36,9 @@ const Page = () => {
         bodyFormData.append("username", username);
         bodyFormData.append("password", password);
 
-        console.log("FormData:", bodyFormData);
         try {
-            const response = await login(bodyFormData);
-            console.log("Response:", response);
+            const token = await login(bodyFormData);
+            localStorage.setItem("token", token);
             router.push("/shop");
         } catch (error) {
             console.log("Error:", error);
