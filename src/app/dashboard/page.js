@@ -1,13 +1,16 @@
 import React from "react";
 import styles from "./page.module.scss";
-import Sidebar from "../../components/UI/Sidebar/index.js";
-import Table from "../../components/UI/Table/index.js";
-import Headash from "../../components/UI/Headash/index.js";
 
 const Page = () => {
     return (
-        <div className={styles.wrapper}>
-            <h1>Dashboard</h1>
+        <div>
+            <div className={styles.content_header}>
+                <h1 className={styles.title}>Dashboard</h1>
+            </div>
+            <div className={styles.content}>
+                <div className={styles.item_3}>
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -59,16 +58,16 @@ const Index = () => {
 
                 <li
                     className={`sidebar-list-item ${
-                        selectedLink === "clients" ? "active" : ""
+                        selectedLink === "customers" ? "active" : ""
                     }`}
                 >
                     <div className="left">
                         <PeopleIcon />
                         <Link
-                            href="/dashboard/clients"
-                            onClick={() => handleLinkClick("clients")}
+                            href="/dashboard/customers"
+                            onClick={() => handleLinkClick("customers")}
                         >
-                            Clients
+                            Customers
                         </Link>
                     </div>
                     <ChevronRightIcon />
