@@ -5,14 +5,14 @@ export async function saveUser(user) {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(user)
+                body: JSON.stringify(user),
             }
         );
 
         const data = await res.json();
-        router.push('auth/login');
+        router.push("auth/login");
         return data;
     } catch (err) {
         return err;
@@ -20,17 +20,19 @@ export async function saveUser(user) {
 }
 
 export async function login(bodyFormData) {
-    console.log("IN : "+JSON.stringify(bodyFormData));
-
+    bodyFormData.keys().forEach((value, key) => {
+        console.log(key, value);
+    });
     try {
+        console.log("bodyFormData:", bodyFormData);
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}token/`,
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
                 },
-                body: bodyFormData
+                body: bodyFormData,
             }
         );
 
@@ -43,3 +45,12 @@ export async function login(bodyFormData) {
     }
 }
 
+// const xhr = new XMLHttpRequest();
+// xhr.open("POST", url, true);
+
+// // Send the proper header information along with the request
+// xhr.setRequestHeader("Content-Type", "application/json");
+
+// xhr.send(varFormdata);
+// // xhr.send(new Int8Array());
+// // xhr.send(document);

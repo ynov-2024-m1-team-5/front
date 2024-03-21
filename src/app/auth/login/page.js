@@ -7,10 +7,12 @@ import Title from "@/components/UI/Title";
 // import Loading from "@/components/UI/Loading";
 import styles from "./page.module.scss";
 import { login } from "@/services/api/auth.api";
+import { useRouter } from "next/navigation";
 
 // import Notification from "@/components/UI/Notification";
 
 const Page = () => {
+    const router = useRouter();
     const [userForm, setUserForm] = useState({
         username: "",
         password: "",
@@ -36,7 +38,7 @@ const Page = () => {
     //     e.preventDefault();
     // };
 
-    const submitLogin = (e) => {
+    const submitLogin = async (e) => {
         e.preventDefault();
         const { username, password } = userForm;
 
@@ -47,8 +49,13 @@ const Page = () => {
         bodyFormData.append("password", password);
 
         console.log("FormData:", bodyFormData);
-
-        login(bodyFormData);
+        try {
+            const response = await login(bodyFormData);
+            console.log("Response:", response);
+            router.push("/shop");
+        } catch (error) {
+            console.log("Error:", error);
+        }
     };
 
     return (
