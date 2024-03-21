@@ -12,7 +12,7 @@ const Index = () => {
                     </Link>
                 </li>
                 <li>
-                    <NavMenu menu={menu} color="grey" />
+                    <NavMenu menu={menu} visibleWishlist={true} color="grey" />
                 </li>
             </ul>
         </header>

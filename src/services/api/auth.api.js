@@ -20,9 +20,9 @@ export async function saveUser(user) {
 }
 
 export async function login(bodyFormData) {
-    bodyFormData.keys().forEach((value, key) => {
-        console.log(key, value);
-    });
+    // bodyFormData.keys().forEach((value, key) => {
+    //     console.log(key, value);
+    // });
     try {
         console.log("bodyFormData:", bodyFormData);
         const res = await fetch(
@@ -38,19 +38,9 @@ export async function login(bodyFormData) {
 
         const data = await res.json();
         //window.location.href = "/shop";
-
+        console.log({ data });
         return data;
     } catch (err) {
         return err;
     }
 }
-
-// const xhr = new XMLHttpRequest();
-// xhr.open("POST", url, true);
-
-// // Send the proper header information along with the request
-// xhr.setRequestHeader("Content-Type", "application/json");
-
-// xhr.send(varFormdata);
-// // xhr.send(new Int8Array());
-// // xhr.send(document);
