@@ -20,26 +20,21 @@ export async function saveUser(user) {
 }
 
 export async function login(bodyFormData) {
-    // bodyFormData.keys().forEach((value, key) => {
-    //     console.log(key, value);
-    // });
     try {
-        console.log("bodyFormData:", bodyFormData);
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}token/`,
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+                    'Accept': '*/*',     
                 },
                 body: bodyFormData,
             }
         );
 
         const data = await res.json();
-        //window.location.href = "/shop";
-        console.log({ data });
-        return data;
+        
+        return data.access_token;
     } catch (err) {
         return err;
     }

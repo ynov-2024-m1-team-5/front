@@ -36,13 +36,10 @@ const Page = () => {
         bodyFormData.append("username", username);
         bodyFormData.append("password", password);
 
-        console.log("FormData:", bodyFormData);
         try {
             const token = await login(bodyFormData);
             localStorage.setItem("token", token);
-            console.log("Token:", token);
-
-            // router.push("/shop");
+            router.push("/shop");
         } catch (error) {
             console.log("Error:", error);
         }
