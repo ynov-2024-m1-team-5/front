@@ -1,0 +1,39 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    max-height: 500px;
+    overflow: auto;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.tableCell {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableHeader {
+    font-weight: bold;
+    padding: 8px;
+}
+
+.cellWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

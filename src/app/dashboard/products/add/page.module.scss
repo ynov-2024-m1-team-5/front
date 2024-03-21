@@ -1,26 +1,12 @@
 .container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 50px;
-    margin-top: 20px;
-}
-
-.infoContainer {
-    flex: 1;
-    background-color: var(--bgSoft);
-    padding: 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    color: var(--textSoft);
-    height: max-content;
-}
-
-.imgContainer {
-    width: 100%;
-    height: 300px;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
+    margin-top: 2%;
+    background-color: white;
+    border-radius: 30px;
 }
 
 .formContainer {
@@ -33,17 +19,19 @@
 .form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .form input,
 .form textarea,
 .form select {
-    padding: 20px;
+    padding: 5px;
     border: 2px solid #2e374a;
     border-radius: 5px;
     background-color: var(--bg);
     color: var(--text);
     margin: 10px 0px;
+    width: 100%; // Adjust the width as needed
 }
 
 .form label {
@@ -58,5 +46,5 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 2%;
 }
