@@ -8,6 +8,10 @@
       "path": "/dashboard"
     },
     {
+      "name": "Register",
+      "path": "/auth/register"
+    },
+    {
       "name": "Contact",
       "path": "/contact"
     }
