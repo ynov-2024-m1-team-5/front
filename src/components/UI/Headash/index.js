@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
-const Index = () => {
+
+const Index = ({products, customers}) => {
+
     return (
         <div className="item_2">
             <div className="section">
@@ -21,7 +23,7 @@ const Index = () => {
                 </div>
                 <div className="items">
                     <p className="title">Products</p>
-                    <p className="number">100</p>
+                    <p className="number">{products.length || 0}</p>
                 </div>
             </div>
             <div className="section">
@@ -64,59 +66,8 @@ const Index = () => {
                     </svg>
                 </div>
                 <div className="items">
-                    <p className="title">Clients</p>
-                    <p className="number">100</p>
-                </div>
-            </div>
-            <div className="section">
-                <div className="icon">
-                    <svg
-                        width="80"
-                        height="80"
-                        viewBox="0 0 84 84"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <circle cx="42" cy="42" r="42" fill="#FC6736" />
-                        <rect
-                            width="42"
-                            height="42"
-                            transform="translate(21 21)"
-                            fill="#FC6736"
-                        />
-                        <path
-                            d="M32.27 24.5H51.7125C57.9425 24.5 59.5 26.0575 59.5 32.27V43.3475C59.5 49.5775 57.9425 51.1175 51.73 51.1175H32.27C26.0575 51.135 24.5 49.5775 24.5 43.365V32.27C24.5 26.0575 26.0575 24.5 32.27 24.5Z"
-                            stroke="white"
-                            strokeWidth="2.625"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                        <path
-                            d="M42 51.1345V59.4995"
-                            stroke="white"
-                            strokeWidth="2.625"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                        <path
-                            d="M24.5 43.75H59.5"
-                            stroke="white"
-                            strokeWidth="2.625"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                        <path
-                            d="M34.125 59.5H49.875"
-                            stroke="white"
-                            strokeWidth="2.625"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </div>
-                <div className="items">
-                    <p className="title">Active</p>
-                    <p className="number">100</p>
+                    <p className="title">Customers</p>
+                    <p className="number">{customers.length || 0}</p>
                 </div>
             </div>
         </div>
