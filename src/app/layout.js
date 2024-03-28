@@ -2,7 +2,10 @@
 import Header from "@/components/partials/Header";
 import Footer from "@/components/partials/Footer";
 import "@/assets/styles/style.scss";
-import { DM_Serif_Display, Work_Sans } from "next/font/google";
+import { DM_Serif_Display, Work_Sans, Poppins } from "next/font/google";
+// import { WishlistContextProvider } from "@/context/WishlistContext";
+import { UserContextProvider } from "@/context/UserContext";
+import { WishlistContextProvider } from "@/context/WishlistContext";
 
 const dm_serif_display = DM_Serif_Display({
     subsets: ["latin"],
@@ -25,9 +28,12 @@ export default function RootLayout({ children }) {
             <body
                 className={`${dm_serif_display.className} ${work_sans.className} ${poppins.className}`}
             >
-                <WishlistContextProvider>
-                    <main>{children}</main>
-                </WishlistContextProvider>
+                <UserContextProvider>
+                    <WishlistContextProvider>
+                        <main>{children}</main>
+                    </WishlistContextProvider>
+                </UserContextProvider>
+
             </body>
         </html>
     );

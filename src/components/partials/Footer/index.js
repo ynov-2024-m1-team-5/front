@@ -14,7 +14,11 @@ const Index = () => {
                     </Link>
                 </div>
                 <div className="w-[20%]">
-                    <NavMenu menu={menu} color="white" />
+                    <NavMenu
+                        menu={menu}
+                        visibleWishlist={false}
+                        color="white"
+                    />
                 </div>
             </div>
         </footer>

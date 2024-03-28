@@ -4,12 +4,13 @@ import Image from "next/image";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState, useContext } from "react";
 import { addFavorite } from "@/services/api/wishlist.api.js";
-import { WishlistContext } from "@/context/WishlistContext";
+// import { WishlistContext } from "@/context/WishlistContext";
+
 
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
+    // const { user } = useContext(WishlistContext);
 
-    const { user } = useContext(WishlistContext);
 
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);

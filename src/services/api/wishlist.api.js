@@ -1,7 +1,9 @@
 export async function addFavorite(customerId, productId) {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_ENDPOINT_WISHLIST}api/v1/wishlists/{customerId}/products/add/{productId}`,
+
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_WISHLIST}api/v1/wishlists/${customerId}/products/add/${productId}`,
+
             {
                 method: "POST",
                 headers: {
@@ -20,9 +22,10 @@ export async function addFavorite(customerId, productId) {
 // recuperer la liste des favoris
 
 export async function getWishlist(customerId) {
+    console.log(customerId);
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_ENDPOINT_WISHLIST}api/v1/wishlists/{customerId}/products`,
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_WISHLIST}api/v1/wishlists/${customerId}/products`,
             {
                 method: "GET",
                 headers: {
