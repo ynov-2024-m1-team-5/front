@@ -14,7 +14,7 @@ export default async function Page() {
     }
 
     return (
-        <div>
+        <div className={styles.wrapper}>
             <div className={styles.content_header}>
                 <h1 className={styles.title}>Customers</h1>
                 <Link href="/dashboard/customers/add">

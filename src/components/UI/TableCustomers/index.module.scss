@@ -1,11 +1,27 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
-    max-height: 500px;
+    table-layout: auto;
     background-color: white;
     border-radius: 8px;
-    overflow-y: auto;
+
+    .tableBody {
+        display: block;
+        max-height: 500px;
+        width: 100%;
+        overflow: auto;
+        margin: 0;
+
+    }
+
+    .tableHeader, .tableRow {
+        width: 100%;
+        display: block;
+    }
+}
+
+.tableHeader, .tableCell {
+    text-align: left;
 }
 
 .tableCell {
@@ -24,6 +40,7 @@
 
 .tableHeader {
     font-weight: bold;
+    width: 100%;
     padding: 8px;
 }
 
