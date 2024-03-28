@@ -70,4 +70,4 @@ export const UserContextProvider = ({ children }) => {
     return (
         <UserContext.Provider value={context}>{children}</UserContext.Provider>
     );
-};
+}
