@@ -9,7 +9,7 @@ import { useContext } from "react";
 const Index = () => {
     const { user, isLogged, logout } = useContext(UserContext);
 
-    // console.log({ user }, isLogged);
+    console.log({ user }, isLogged);
     return (
         <header className="bg-white border-b border-color-black">
             <ul className="flex pl-6 pr-6 items-center justify-between">
