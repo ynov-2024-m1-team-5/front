@@ -1,32 +1,37 @@
 "use client";
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useContext} from "react";
 import Input from "@/components/UI/Input";
 import Title from "@/components/UI/Title";
 import Button from "@/components/UI/Button";
 import styles from "./page.module.css";
-import { getCustomerById } from "@/services/api/customer.api";
-import { decodeToken } from "@/lib/decodeToken";
+import { updateCustomer } from "@/services/api/auth.api";
+import { UserContext } from "@/context/UserContext";
 
 
 const Page = () => {
+    const { user } = useContext(UserContext);
     const [modifying, setModifying] = useState(false);
-    const [user, setUser] = useState({});
     const [title, setTitle] = useState("Mon compte");
+    const [form, setForm] = useState({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone: user.phone,
+        city: user.city,
+        zipcode: user.zipcode,
+        address: user.address,
+    });
 
     const handleChange = (e) => {
-        user[e.target.name] = e.target.defaultValue;
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
+        });
     };
-    const fetchUserData = async (token) => {
-        const tokenDecoded = await decodeToken(token);
-        const userData = await getCustomerById(tokenDecoded.sub);
-        setUser(userData);
-    
-    }
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        fetchUserData(token);
-    }, []);
+    const submitRegister = async (e) => {
+        updateCustomer(user.id,form)
+    }
 
     useEffect(() => {
         if (modifying) {
