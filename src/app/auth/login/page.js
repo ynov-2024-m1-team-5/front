@@ -39,6 +39,14 @@ const Page = () => {
         bodyFormData.append("username", username);
         bodyFormData.append("password", password);
 
+    
+//         for(const value of bodyFormData.values()){
+//             console.log('FormData value:', value);
+//         }
+        
+//         login(bodyFormData);
+
+
         try {
             const token = await login(bodyFormData);
             setToken(token);
@@ -48,6 +56,7 @@ const Page = () => {
         } catch (error) {
             console.log("Error:", error);
         }
+
     };
 
     return (
