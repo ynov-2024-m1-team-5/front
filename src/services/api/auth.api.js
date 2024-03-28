@@ -12,7 +12,7 @@ export async function saveUser(user) {
         );
 
         const data = await res.json();
-        console.log("data : ", {data});
+        console.log("data : ", data.customer_id);
 
         const newShoppingCart = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_CART}createCart/`,
@@ -21,9 +21,7 @@ export async function saveUser(user) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: {
-                    'customer_id': data.customer_id
-                }
+                body: JSON.stringify({customer_id: data.customer_id})
             }
         );
 
