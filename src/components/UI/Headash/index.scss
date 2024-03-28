@@ -1,6 +1,6 @@
 .item_2 {
     width: 80%;
-    height: 90%;
+    height: 100px;
     background: white;
     margin: 8px auto;
     text-align: center;
@@ -22,7 +22,7 @@
             // Total Products
             color: #acacac;
             font-size: 15px;
-            font-family: "Poppins";
+            font-family: "Arial";
             font-weight: 400;
             word-wrap: break-word;
         }
@@ -30,10 +30,12 @@
             // 5,423
             color: #0c2d57;
             font-size: 30px;
-            font-family: "Poppins";
+            font-family: "Arial";
             font-weight: 600;
             line-height: 32px;
             word-wrap: break-word;
         }
     }
 }
+
+
