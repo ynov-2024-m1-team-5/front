@@ -3,16 +3,9 @@
       "name": "Shop",
       "path": "/shop"
     },
+ 
     {
-      "name": "Dashboard",
-      "path": "/dashboard"
-    },
-    {
-      "name": "Register",
-      "path": "/auth/register"
-    },
-    {
-      "name": "Contact",
-      "path": "/contact"
+      "name": "Connexion",
+      "path": "/auth/login"
     }
 ]

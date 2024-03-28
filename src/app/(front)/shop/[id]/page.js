@@ -8,6 +8,7 @@ import TitlePage from "@/components/UI/TitlePage";
 import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
+import Link from "next/link";
 
 // import { getBase64 } from "../../../lib/base64";
 
@@ -94,7 +95,7 @@ export default function Page() {
                             blurDataURL={placehodlerImage}
                             className="object-cover h-full w-full group-hover/show:scale-105 transition ease-in-out delay-150 z-1"
                             alt={product.name}
-                            src=""
+                            src={product.thumbnail}
                             width={500}
                             height={500}
                         />
@@ -104,7 +105,9 @@ export default function Page() {
                             <Image
                                 className="cursor-pointer object-cover h-full w-full "
                                 alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
+                                // src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
+                                // src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                src={product.thumbnail}
                                 width={100}
                                 height={100}
                                 onMouseOver={() => {

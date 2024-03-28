@@ -55,13 +55,14 @@ export async function login(bodyFormData) {
             {
                 method: "POST",
                 headers: {
-                    'Accept': '*/*',     
+                    Accept: "*/*",
                 },
                 body: bodyFormData,
             }
         );
 
         const data = await res.json();
+
 
         console.log(data);
         if(data != null){
