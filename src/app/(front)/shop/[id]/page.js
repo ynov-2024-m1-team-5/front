@@ -8,6 +8,7 @@ import TitlePage from "@/components/UI/TitlePage";
 import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
+import Link from "next/link";
 
 // import { getBase64 } from "../../../lib/base64";
 
@@ -94,7 +95,7 @@ export default function Page() {
                             blurDataURL={placehodlerImage}
                             className="object-cover h-full w-full group-hover/show:scale-105 transition ease-in-out delay-150 z-1"
                             alt={product.name}
-                            src=""
+                            src={product.thumbnail}
                             width={500}
                             height={500}
                         />
@@ -104,7 +105,9 @@ export default function Page() {
                             <Image
                                 className="cursor-pointer object-cover h-full w-full "
                                 alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
+                                // src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
+                                // src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                src={product.thumbnail}
                                 width={100}
                                 height={100}
                                 onMouseOver={() => {
@@ -142,6 +145,15 @@ export default function Page() {
                         {product.price} €
                     </p>
                     <p className="leading-7">{product.description}</p>
+
+                    <div className="group-hover/card:opacity-100 transition ease-in-out delay-150">
+                        <Link
+                            className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white"
+                            href={`/shop/${product.id}`}
+                        >
+                            Aouter au panier
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
