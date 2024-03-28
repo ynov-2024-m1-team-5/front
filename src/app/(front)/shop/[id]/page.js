@@ -8,6 +8,7 @@ import TitlePage from "@/components/UI/TitlePage";
 import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
+import Link from "next/link";
 
 // import { getBase64 } from "../../../lib/base64";
 

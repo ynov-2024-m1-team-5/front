@@ -10,7 +10,7 @@ export async function getProducts(take) {
             }
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         return data.products;
     } catch (err) {
         return err;

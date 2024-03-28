@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button/";
@@ -8,6 +8,7 @@ import Title from "@/components/UI/Title";
 import styles from "./page.module.scss";
 import { login } from "@/services/api/auth.api";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/UserContext";
 
 // import Notification from "@/components/UI/Notification";
 
@@ -17,6 +18,8 @@ const Page = () => {
         username: "",
         password: "",
     });
+
+    const { setToken } = useContext(UserContext);
 
     //ce code est à mettre dans le fichier useFetch.js
     const handleChange = (e) => {
@@ -38,7 +41,9 @@ const Page = () => {
 
         try {
             const token = await login(bodyFormData);
+            setToken(token);
             localStorage.setItem("token", token);
+
             router.push("/shop");
         } catch (error) {
             console.log("Error:", error);
