@@ -30,7 +30,7 @@ const Index = () => {
                             Logout
                         </button>
                         <Link href="/account">
-                            <h2>{user.first_name}</h2> - Profil
+                            <h2>{user.first_name}</h2>
                         </Link>
                     </li>
                 )}
