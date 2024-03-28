@@ -12,6 +12,23 @@ export async function saveUser(user) {
         );
 
         const data = await res.json();
+        console.log("data : ", data.customer_id);
+
+        const newShoppingCart = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_CART}createCart/`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({customer_id: data.customer_id})
+            }
+        );
+
+        const resCreateShoppingCart = await newShoppingCart.json();
+
+        console.log("RESPONSE : ", {resCreateShoppingCart});
+
         router.push("auth/login");
         return data;
     } catch (err) {
@@ -55,7 +72,7 @@ export async function login(bodyFormData) {
             {
                 method: "POST",
                 headers: {
-                    Accept: "*/*",
+                    'Accept': "*/*",
                 },
                 body: bodyFormData,
             }
@@ -68,7 +85,7 @@ export async function login(bodyFormData) {
         if(data != null){
             window.location.href = "/shop";
         }
-        return data;
+        return data.access_token;
     } catch (err) {
         return err;
     }

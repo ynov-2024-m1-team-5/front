@@ -66,7 +66,7 @@ const Page = () => {
             <form onSubmit={(e) => submitLogin(e)}>
                 <Input
                     label="Email"
-                    type="email"
+                    type="text"
                     name="username"
                     placeholder="veuillez saisir votre email"
                     isRequired={true}

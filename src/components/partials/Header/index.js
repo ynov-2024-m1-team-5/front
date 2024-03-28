@@ -29,7 +29,9 @@ const Index = () => {
                         >
                             Logout
                         </button>
-                        <h2>{user.first_name}</h2>
+                        <Link href="/account">
+                            <h2>{user.first_name}</h2>
+                        </Link>
                     </li>
                 )}
             </ul>
