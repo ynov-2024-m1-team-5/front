@@ -7,7 +7,6 @@ import { DM_Serif_Display, Work_Sans, Poppins } from "next/font/google";
 import { UserContextProvider } from "@/context/UserContext";
 import { WishlistContextProvider } from "@/context/WishlistContext";
 
-
 const dm_serif_display = DM_Serif_Display({
     subsets: ["latin"],
     weight: ["400"],
@@ -20,7 +19,7 @@ const work_sans = Work_Sans({
 
 const poppins = Poppins({
     subsets: ["latin"],
-    weight: ["200","300","400","500","600","700","800","900"],
+    weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export default function RootLayout({ children }) {
@@ -34,6 +33,7 @@ export default function RootLayout({ children }) {
                         <main>{children}</main>
                     </WishlistContextProvider>
                 </UserContextProvider>
+
             </body>
         </html>
     );

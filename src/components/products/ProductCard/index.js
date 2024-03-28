@@ -6,10 +6,11 @@ import { useState, useContext } from "react";
 import { addFavorite } from "@/services/api/wishlist.api.js";
 // import { WishlistContext } from "@/context/WishlistContext";
 
+
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
-
     // const { user } = useContext(WishlistContext);
+
 
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
