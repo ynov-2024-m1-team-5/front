@@ -22,14 +22,14 @@ const Index = () => {
                     <NavMenu menu={menu} visibleWishlist={true} color="grey" />
                 </li>
                 {isLogged && (
-                    <li>
+                    <li className="flex items-center justify-center gap-2">
+                        <h2>{user.first_name}</h2>
                         <button
                             onClick={() => logout()}
                             className="text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
                         >
-                            Logout
+                            <h2>Logout</h2>
                         </button>
-                        <h2>{user.first_name}</h2>
                     </li>
                 )}
             </ul>
