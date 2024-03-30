@@ -9,6 +9,7 @@ export async function getProducts() {
                 },
             }
         );
+
         const data = await res.json();
         return data.products;
     } catch (err) {
@@ -24,6 +25,7 @@ export async function getProduct(id) {
                 cache: "no-store",
             }
         );
+
         const data = await res.json();
         return data.product;
     } catch (err) {
@@ -34,7 +36,7 @@ export async function getProduct(id) {
 export async function createProduct(productData) {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_PRODUCT}create`,
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_PRODUCT}create`,
             {
                 method: "POST",
                 headers: {
@@ -62,13 +64,16 @@ export async function createProduct(productData) {
 
 export async function updateProduct(id, productData) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_PRODUCT}${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(productData),
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_PRODUCT}${id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(productData),
+            }
+        );
         if (!res.ok) {
             const text = await res.text();
             try {
@@ -89,12 +94,15 @@ export async function updateProduct(id, productData) {
 
 export async function deleteProduct(id) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_PRODUCT}${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_PRODUCT}${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         const data = await res.json();
         return data.product;
     } catch (err) {

@@ -5,14 +5,31 @@ export async function saveUser(user) {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(user)
+                body: JSON.stringify(user),
             }
         );
 
         const data = await res.json();
-        router.push('auth/login');
+        console.log("data : ", data.customer_id);
+
+        const newShoppingCart = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_CART}createCart/`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({customer_id: data.customer_id})
+            }
+        );
+
+        const resCreateShoppingCart = await newShoppingCart.json();
+
+        console.log("RESPONSE : ", {resCreateShoppingCart});
+
+        router.push("auth/login");
         return data;
     } catch (err) {
         return err;
@@ -55,19 +72,20 @@ export async function login(bodyFormData) {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "Content-Length": contentLength
+                    'Accept': "*/*",
                 },
-                body: formDataString
+                body: bodyFormData,
             }
         );
 
         const data = await res.json();
+
+
         console.log(data);
         if(data != null){
             window.location.href = "/shop";
         }
-        return data;
+        return data.access_token;
     } catch (err) {
         return err;
     }
@@ -139,11 +157,14 @@ export async function updateCustomer(id, Customer) {
             }
         }
         const data = await res.json();
-        return data;
+        
+        return data.access_token;
+
     } catch (err) {
         return err;
     }
 }
+
 
 export async function deleteCustomer(id) {
     try {
@@ -156,3 +177,4 @@ export async function deleteCustomer(id) {
         return err;
     }
 }
+

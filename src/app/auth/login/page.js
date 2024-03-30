@@ -1,21 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button/";
 import Title from "@/components/UI/Title";
 // import Loading from "@/components/UI/Loading";
 import styles from "./page.module.scss";
-import {login} from "@/services/api/auth.api";
-
+import { login } from "@/services/api/auth.api";
+import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/UserContext";
 
 // import Notification from "@/components/UI/Notification";
 
 const Page = () => {
+    const router = useRouter();
     const [userForm, setUserForm] = useState({
-        email: "",
+        username: "",
         password: "",
     });
+
+    const { setToken } = useContext(UserContext);
 
     //ce code est à mettre dans le fichier useFetch.js
     const handleChange = (e) => {
@@ -25,35 +29,35 @@ const Page = () => {
         });
     };
 
-    // const submitLogin = (e) => {
-    //     const { email, password } = userForm;
-    //     console.log('TEST : '+JSON.stringify(userForm));
-
-    //     const bodyFormData = new FormData();
-    //     bodyFormData.append("username", email);
-    //     bodyFormData.append("password", password);
-    //     console.log('TEST : '+JSON.stringify(bodyFormData));
-    //     login(bodyFormData);
-    //     e.preventDefault();
-    // };
-
-    const submitLogin = (e) => {
+    const submitLogin = async (e) => {
         e.preventDefault();
-        const { email, password } = userForm;
-    
-        console.log('User Form:', userForm);
-        
+        const { username, password } = userForm;
+
+        console.log("User Form:", userForm);
+
         const bodyFormData = new FormData();
-        bodyFormData.append("username", email);
+        bodyFormData.append("username", username);
         bodyFormData.append("password", password);
+
     
-        for(const value of bodyFormData.values()){
-            console.log('FormData value:', value);
-        }
+//         for(const value of bodyFormData.values()){
+//             console.log('FormData value:', value);
+//         }
         
-        login(bodyFormData);
+//         login(bodyFormData);
+
+
+        try {
+            const token = await login(bodyFormData);
+            setToken(token);
+            localStorage.setItem("token", token);
+
+            router.push("/shop");
+        } catch (error) {
+            console.log("Error:", error);
+        }
+
     };
-    
 
     return (
         <>
@@ -62,12 +66,12 @@ const Page = () => {
             <form onSubmit={(e) => submitLogin(e)}>
                 <Input
                     label="Email"
-                    type="email"
-                    name="email"
+                    type="text"
+                    name="username"
                     placeholder="veuillez saisir votre email"
                     isRequired={true}
                     onChange={(e) => handleChange(e)}
-                    value={userForm.email}
+                    value={userForm.username}
                 />
                 <Input
                     label="Password"
