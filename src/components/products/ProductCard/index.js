@@ -25,7 +25,7 @@ const Index = ({ product }) => {
                     <Image
                         className=""
                         alt="trans"
-                        src=""
+                        src={product.thumbnail}
                         fill
                         sizes="100%"
                         style={{ objectFit: "cover" }}

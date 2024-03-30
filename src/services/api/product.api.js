@@ -1,41 +1,48 @@
 export async function getProducts() {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_PRODUCT}all`, {
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_PRODUCT}all`,
+            {
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         const data = await res.json();
         return data.products;
-    }
-    catch (err) {
+    } catch (err) {
         return err;
     }
 }
 
 export async function getProduct(id) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_PRODUCT}${id}`, {
-            cache: "no-store",
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_PRODUCT}${id}`,
+            {
+                cache: "no-store",
+            }
+        );
         const data = await res.json();
         return data.product;
-    }
-    catch (err) {
+    } catch (err) {
         return err;
     }
 }
 
 export async function createProduct(productData) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_PRODUCT}create`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(productData),
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_PRODUCT}create`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(productData),
+            }
+        );
 
         if (!res.ok) {
             const text = await res.text();
@@ -48,8 +55,7 @@ export async function createProduct(productData) {
         }
         const data = await res.json();
         return data.product;
-    }
-    catch (err) {
+    } catch (err) {
         return err;
     }
 }
@@ -76,9 +82,8 @@ export async function updateProduct(id, productData) {
         const data = await res.json();
         console.log("data :", data);
         return data.product;
-    }
-    catch (err) {
-        return err
+    } catch (err) {
+        return err;
     }
 }
 
@@ -92,8 +97,7 @@ export async function deleteProduct(id) {
         });
         const data = await res.json();
         return data.product;
-    }
-    catch (err) {
+    } catch (err) {
         return err;
     }
 }

@@ -7,6 +7,8 @@ const nextConfig = {
             "www.pexels.com",
             "media.cdnws.com",
             "media.deparis.me",
+            "media.istockphoto.com",
+            "picsum.photos",
         ],
     },
 };
