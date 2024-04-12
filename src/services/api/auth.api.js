@@ -12,8 +12,7 @@ export async function saveUser(user) {
         );
 
         const data = await res.json();
-        console.log("DATA : ", data);
-
+        
         if (data.success === undefined) {
             throw new Error(data.detail);
         }
@@ -34,7 +33,6 @@ export async function saveUser(user) {
 
         console.log("RESPONSE : ", {resCreateShoppingCart});
 
-        // router.push("auth/login");
         return data;
     } catch (err) {
         throw err;
