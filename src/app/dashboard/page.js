@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import styles from "./page.module.scss";
 
+
 const Page = () => {
+
     return (
         <div>
             <div className={styles.content_header}>

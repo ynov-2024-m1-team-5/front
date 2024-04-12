@@ -15,6 +15,7 @@ const List = ({ products }) => {
     };
     
     return (
+        <div className={styles.wrapper}>
             <table className={styles.table}>
                 <thead className={styles.tableHeader}>
                     <tr className={styles.tableRow}>
@@ -95,6 +96,7 @@ const List = ({ products }) => {
                     )}
                 </tbody>
             </table>
+        </div>
     );
 };
 

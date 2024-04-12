@@ -50,10 +50,10 @@ export default function Page() {
             <div className={styles.content}>
                 <div className={styles.item_3}>
                     <div className={styles.item}>
-                        <h2>Order Number: {order.orderNumber}</h2>
-                        <p>Order Date: {order.orderDate}</p>
-                        <p>Order Status: {order.orderStatus}</p>
-                        <p>Shipping Method: {order.shippingMethod}</p>
+                        <h2>Order Number: {order.id}</h2>
+                        <p>Order Date: {order.date}</p>
+                        <p>Order Status: {order.status}</p>
+                        <p>Shipping Method: {order.method}</p>
                         <p>Number of Items: {order.numberOfItems}</p>
                         <p>Total Amount: {order.totalAmount}</p>
                         <p>Customer: {order.customer}</p>

@@ -1,12 +1,14 @@
 "use client";
-import React from "react";
+import React, {useContext} from "react";
+import { UserContext } from "@/context/UserContext";
 import styles from "./page.module.scss";
 import Alert from "@/components/UI/Alert";
 import TableOrders from "@/components/UI/TableOrders/index.js";
 import { getOrders } from "@/services/api/order.api.js";
 
 export default async function Page() {
-    const orders = await getOrders();
+    const { token, user } = useContext(UserContext);
+    const orders = await getOrders(token);
 
     if (!orders) {
         return <Alert message="Orders not found" type="error" />;

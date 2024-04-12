@@ -14,6 +14,7 @@ const List = ({ customers }) => {
     };
 
     return (
+        <div className={styles.wrapper}>
             <table className={styles.table}>
                 <thead className={styles.tableHeader}>
                     <tr className={styles.tableRow}>
@@ -93,6 +94,7 @@ const List = ({ customers }) => {
                     )}
                 </tbody>
             </table>
+        </div>
     );
 };
 
