@@ -40,6 +40,7 @@ export default function Page() {
             fetchProduct();
         }
     }, [id]);
+    
 
     // useEffect(() => {
     //     const fetchPlaceholderImage = async () => {
@@ -154,7 +155,7 @@ export default function Page() {
                             Ajouter au panier
                         </Link> */}
                         <Link className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white" 
-                        href="/panier">Ajouter au panier</Link>
+                        href="/panier" onClick={addToCart}>Ajouter au panier</Link>
                     </div>
                 </div>
             </div>

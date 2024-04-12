@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Page = () => {
     const { products } = useContext(WishlistContext);
-    console.log(products);
+    console.log("LISTE : "+products);
 
     return (
         <div className="container mx-auto">
