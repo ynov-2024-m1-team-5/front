@@ -8,6 +8,7 @@ import Link from "next/link";
 import {saveUser} from "@/services/api/auth.api";
 
 const Index = () => {
+    const [error, setError] = useState("");
     const [userForm, setUserForm] = useState({
         first_name: "",
         last_name: "",
@@ -31,9 +32,17 @@ const Index = () => {
 
     // cette fonction permet de soumettre le formulaire d'inscription et de gérer les erreurs et e.preventDefault() permet de ne pas recharger la page
     const submitRegister = (e) => {
-        saveUser(userForm);
         e.preventDefault();
+        register();
     };
+
+    const register = async () => {
+        try {
+            await saveUser(userForm);
+        } catch (error) {
+            setError(error.message);
+        }
+    }
 
     // permet de verifier si le token est présent dans le localstorage et de faire la requête pour récupérer les
 
@@ -120,6 +129,9 @@ const Index = () => {
                     onChange={(e) => handleChange(e)}
                     value={userForm.password}
                 />
+                {
+                    error&&<p>{error}</p>
+                }
                 <div className={styles.bottom}>
                     <Button
                         type="submit"
