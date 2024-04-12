@@ -13,6 +13,7 @@ import { UserContext } from "@/context/UserContext";
 // import Notification from "@/components/UI/Notification";
 
 const Page = () => {
+    const [error, setError] = useState("");
     const router = useRouter();
     const [userForm, setUserForm] = useState({
         username: "",
@@ -51,10 +52,9 @@ const Page = () => {
             const token = await login(bodyFormData);
             setToken(token);
             localStorage.setItem("token", token);
-
             router.push("/shop");
         } catch (error) {
-            console.log("Error:", error);
+            setError(error.message);
         }
 
     };
@@ -82,6 +82,9 @@ const Page = () => {
                     onChange={(e) => handleChange(e)}
                     value={userForm.password}
                 />
+                {
+                    error&&<p>{error}</p>
+                }
                 <Button
                     type="submit"
                     title="Connexion"

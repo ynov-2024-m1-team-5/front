@@ -12,7 +12,12 @@ export async function saveUser(user) {
         );
 
         const data = await res.json();
-        console.log("data : ", data.customer_id);
+        console.log("DATA : ", data);
+
+        if (data.success === undefined) {
+            throw new Error(data.detail);
+        }
+
 
         const newShoppingCart = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_CART}createCart/`,
@@ -29,10 +34,10 @@ export async function saveUser(user) {
 
         console.log("RESPONSE : ", {resCreateShoppingCart});
 
-        router.push("auth/login");
+        // router.push("auth/login");
         return data;
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
@@ -79,15 +84,14 @@ export async function login(bodyFormData) {
         );
 
         const data = await res.json();
-
-
-        console.log(data);
-        if(data != null){
-            window.location.href = "/shop";
-        }
+        
+        if (data.access_token === undefined) {
+            throw new Error(data.detail);
+        } 
         return data.access_token;
+
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
