@@ -1,12 +1,11 @@
 "use client";
-import React,{useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Input from "@/components/UI/Input";
 import Title from "@/components/UI/Title";
 import Button from "@/components/UI/Button";
 import styles from "./page.module.css";
 import { updateCustomer } from "@/services/api/auth.api";
 import { UserContext } from "@/context/UserContext";
-
 
 const Page = () => {
     const { user } = useContext(UserContext);
@@ -30,8 +29,8 @@ const Page = () => {
     };
 
     const submitRegister = async (e) => {
-        updateCustomer(user.id,form)
-    }
+        updateCustomer(user.id, form);
+    };
 
     useEffect(() => {
         if (modifying) {
@@ -39,138 +38,156 @@ const Page = () => {
         } else {
             setTitle("Mon compte");
         }
-    }, [modifying])
-    
+    }, [modifying]);
 
     return (
         <>
-
             <Title title={title} Level="h1" />
-            {modifying ?
-            (<form className={styles.form} onSubmit={(e) => submitRegister(e)}>
-                <Input
-                    label="Prénom"
-                    type="text"
-                    name="first_name"
-                    placeholder="Prénom"
-                    required={true}
-                    onChange={(e) => handleChange(e)}
-                    defaultValue={user.first_name}
-                />
-                <Input
-                    label="Nom"
-                    type="text"
-                    name="last_name"
-                    placeholder="Nom"
-                    required={true}
-                    onChange={(e) => handleChange(e)}
-                    defaultValue={user.last_name}
-                />
-                <Input
-                    label="Email"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    required={true}
-                    onChange={(e) => handleChange(e)}
-                    defaultValue={user.email}
-                />
-                <Input
-                    label="Téléphone"
-                    type="phone"
-                    name="phone"
-                    placeholder="Téléphone"
-                    required={true}
-                    onChange={(e) => handleChange(e)}
-                    defaultValue={user.phone}
-                />
-                <div className={styles.location}>
-                <div className={styles.city}>
+            {modifying ? (
+                <form
+                    className={styles.form}
+                    onSubmit={(e) => submitRegister(e)}
+                >
                     <Input
-                        label="Ville"
+                        label="Prénom"
                         type="text"
-                        name="city"
-                        placeholder="Ville"
+                        name="first_name"
+                        placeholder="Prénom"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        defaultValue={user.city}
+                        defaultValue={user.first_name}
                     />
-                    </div>
-                <div className={styles.zipcode}>
                     <Input
-                        label="Code postal"
-                        type="number"
-                        name="zipcode"
-                        placeholder="Code postal"
+                        label="Nom"
+                        type="text"
+                        name="last_name"
+                        placeholder="Nom"
                         required={true}
                         onChange={(e) => handleChange(e)}
-                        defaultValue={user.zipcode}
+                        defaultValue={user.last_name}
                     />
-                </div>
-                </div>
-                <Input
-                    label="Adresse"
-                    type="text"
-                    name="address"
-                    placeholder="Adresse"
-                    required={true}
-                    onChange={(e) => handleChange(e)}
-                    defaultValue={user.address}
-                />
+                    <Input
+                        label="Email"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required={true}
+                        onChange={(e) => handleChange(e)}
+                        defaultValue={user.email}
+                    />
+                    <Input
+                        label="Téléphone"
+                        type="phone"
+                        name="phone"
+                        placeholder="Téléphone"
+                        required={true}
+                        onChange={(e) => handleChange(e)}
+                        defaultValue={user.phone}
+                    />
+                    <div className={styles.location}>
+                        <div className={styles.city}>
+                            <Input
+                                label="Ville"
+                                type="text"
+                                name="city"
+                                placeholder="Ville"
+                                required={true}
+                                onChange={(e) => handleChange(e)}
+                                defaultValue={user.city}
+                            />
+                        </div>
+                        <div className={styles.zipcode}>
+                            <Input
+                                label="Code postal"
+                                type="number"
+                                name="zipcode"
+                                placeholder="Code postal"
+                                required={true}
+                                onChange={(e) => handleChange(e)}
+                                defaultValue={user.zipcode}
+                            />
+                        </div>
+                    </div>
+                    <Input
+                        label="Adresse"
+                        type="text"
+                        name="address"
+                        placeholder="Adresse"
+                        required={true}
+                        onChange={(e) => handleChange(e)}
+                        defaultValue={user.address}
+                    />
 
-                <div className={styles.bottom}>
-                    <Button
-                        type="submit"
-                        title="Enregistrer les modifications"
-                        className="btn__primary"
-                        handleClick={(e)=>submitRegister(e)}
-                    />
-                    <Button
-                        title="Annuler"
-                        className="btn__secondary"
-                        handleClick={() => setModifying(false)}
-                    />
-                </div>
-            </form> )
-            : (
-                <div className={styles.form}>
-                    <div>
-                        <p>
-                            <strong>Prénom:</strong> {user.first_name}
-                        </p>
+                    <div className={styles.bottom}>
+                        <Button
+                            type="submit"
+                            title="Modifier"
+                            className="btn__primary"
+                            handleClick={(e) => submitRegister(e)}
+                        />
+                        <Button
+                            title="Annuler"
+                            className="btn__secondary"
+                            handleClick={() => setModifying(false)}
+                        />
                     </div>
-                    <div>
-                        <p>
-                            <strong>Nom:</strong> {user.last_name}
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Email:</strong> {user.email}
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Téléphone:</strong> {user.phone}
-                        </p>
-                    </div>
-                    <div>
-                        <div>
-                            <p>
-                                <strong>Ville:</strong> {user.city}
-                            </p>
+                </form>
+            ) : (
+                <div className="flow-root rounded-lg border border-gray-100 py-3 w-2/4 m-auto shadow-sm">
+                    <dl className="-my-3 divide-y divide-gray-100 text-sm">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">
+                                Prénom
+                            </dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.first_name}
+                            </dd>
                         </div>
-                        <div>
-                            <p>
-                                <strong>Code postal:</strong> {user.zipcode}
-                            </p>
+
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">Nom</dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.last_name}
+                            </dd>
                         </div>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Adresse:</strong> {user.address}
-                        </p>
-                    </div>
+
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">Email</dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.email}
+                            </dd>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">
+                                Téléphone
+                            </dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.phone}
+                            </dd>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">Ville</dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.city}
+                            </dd>
+                        </div>
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">
+                                Code Postal
+                            </dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.zipcode}
+                            </dd>
+                        </div>
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                            <dt className="font-medium text-gray-900">Rue</dt>
+                            <dd className="text-gray-700 sm:col-span-2">
+                                {user.address}
+                            </dd>
+                        </div>
+                    </dl>
                     <div className={styles.bottom}>
                         <Button
                             title="Modifier"
@@ -180,7 +197,6 @@ const Page = () => {
                     </div>
                 </div>
             )}
-            
         </>
     );
 };

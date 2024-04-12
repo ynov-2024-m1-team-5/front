@@ -13,13 +13,6 @@ const Index = () => {
                         </span>
                     </Link>
                 </div>
-                <div className="w-[20%]">
-                    <NavMenu
-                        menu={menu}
-                        visibleWishlist={false}
-                        color="white"
-                    />
-                </div>
             </div>
         </footer>
     );
