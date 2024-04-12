@@ -79,15 +79,14 @@ export async function login(bodyFormData) {
         );
 
         const data = await res.json();
-
-
-        console.log(data);
-        if(data != null){
-            window.location.href = "/shop";
-        }
+        
+        if (data.access_token === undefined) {
+            throw new Error(data.detail);
+        } 
         return data.access_token;
+
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
