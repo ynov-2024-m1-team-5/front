@@ -8,7 +8,6 @@ import { addFavorite } from "@/services/api/wishlist.api.js";
 
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
-
     // const { user } = useContext(WishlistContext);
 
     const toggleFavorite = () => {
@@ -30,7 +29,7 @@ const Index = ({ product }) => {
                     <Image
                         className=""
                         alt="trans"
-                        src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        src={product.thumbnail}
                         fill
                         sizes="100%"
                         style={{ objectFit: "cover" }}

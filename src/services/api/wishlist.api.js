@@ -1,7 +1,9 @@
 export async function addFavorite(customerId, productId) {
     try {
         const res = await fetch(
+
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_WISHLIST}api/v1/wishlists/${customerId}/products/add/${productId}`,
+
             {
                 method: "POST",
                 headers: {

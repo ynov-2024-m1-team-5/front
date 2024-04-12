@@ -105,8 +105,6 @@ export default function Page() {
                             <Image
                                 className="cursor-pointer object-cover h-full w-full "
                                 alt={product.name}
-                                // src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`}
-                                // src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=600"
                                 src={product.thumbnail}
                                 width={100}
                                 height={100}
@@ -145,6 +143,15 @@ export default function Page() {
                         {product.price} €
                     </p>
                     <p className="leading-7">{product.description}</p>
+
+                    <div className="group-hover/card:opacity-100 transition ease-in-out delay-150">
+                        <Link
+                            className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white"
+                            href="/panier"
+                        >
+                            Aouter au panier
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
