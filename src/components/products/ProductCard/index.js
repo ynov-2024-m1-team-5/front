@@ -6,11 +6,9 @@ import { useState, useContext } from "react";
 import { addFavorite } from "@/services/api/wishlist.api.js";
 // import { WishlistContext } from "@/context/WishlistContext";
 
-
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     // const { user } = useContext(WishlistContext);
-
 
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
@@ -31,7 +29,7 @@ const Index = ({ product }) => {
                     <Image
                         className=""
                         alt="trans"
-                        src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        src={product.thumbnail}
                         fill
                         sizes="100%"
                         style={{ objectFit: "cover" }}
