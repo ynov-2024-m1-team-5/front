@@ -12,7 +12,10 @@ export async function saveUser(user) {
         );
 
         const data = await res.json();
-        console.log("data : ", data.customer_id);
+
+        if (data.success === undefined) {
+            throw new Error(data.detail);
+        }
 
         const newShoppingCart = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_CART}createCart/`,
@@ -21,20 +24,43 @@ export async function saveUser(user) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({customer_id: data.customer_id})
+                body: JSON.stringify({ customer_id: data.customer_id }),
             }
         );
 
         const resCreateShoppingCart = await newShoppingCart.json();
 
-        console.log("RESPONSE : ", {resCreateShoppingCart});
+        console.log("RESPONSE : ", { resCreateShoppingCart });
 
-        router.push("auth/login");
         return data;
     } catch (err) {
-        return err;
+        throw err;
     }
 }
+
+// export async function login(bodyFormData) {
+//     console.log("IN : "+JSON.stringify(bodyFormData));
+
+//     try {
+//         const res = await fetch(
+//             `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}token`,
+//             {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/x-www-form-urlencoded"
+//                 },
+//                 body: bodyFormData
+//             }
+//         );
+
+//         const data = await res.json();
+//         //window.location.href = "/shop";
+
+//         return data;
+//     } catch (err) {
+//         return err;
+//     }
+// }
 
 export async function login(bodyFormData) {
     try {
@@ -47,7 +73,7 @@ export async function login(bodyFormData) {
             {
                 method: "POST",
                 headers: {
-                    'Accept': "*/*",
+                    Accept: "*/*",
                 },
                 body: bodyFormData,
             }
@@ -55,13 +81,16 @@ export async function login(bodyFormData) {
 
         const data = await res.json();
 
-        console.log(data);
+        if (data.access_token === undefined) {
+            throw new Error(data.detail);
+        }
+
         if (data != null) {
             window.location.href = "/shop";
         }
         return data.access_token;
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
