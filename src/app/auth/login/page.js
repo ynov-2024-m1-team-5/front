@@ -12,7 +12,7 @@ import Loader from "@/components/UI/Loader";
 
 const Page = () => {
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false); // Correction ici
+    const [loading, setLoading] = useState(false); 
     const router = useRouter();
     const [userForm, setUserForm] = useState({
         username: "",
