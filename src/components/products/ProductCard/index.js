@@ -2,18 +2,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { addFavorite } from "@/services/api/wishlist.api.js";
-// import { WishlistContext } from "@/context/WishlistContext";
+import { UserContext } from "@/context/UserContext";
 
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
-    // const { user } = useContext(WishlistContext);
+    const { user, token } = useContext(UserContext);
+    const customer_id = user.id;
 
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
-        addFavorite(user.id, product.id);
+        addFavorite(customer_id, product.id, token); // Vous devrez peut-être ajuster cette ligne en fonction de la manière dont vous obtenez l'ID de l'utilisateur.
     };
+
     return (
         <div
             className={`group/card max-w-sm bg-white rounded-lg ${
@@ -24,7 +26,7 @@ const Index = ({ product }) => {
                 <div
                     className={`overflow-hidden w-[250px] h-[300px] relative ${
                         isFavorite ? "favorited" : ""
-                    } `}
+                    }`}
                 >
                     <Image
                         className=""
