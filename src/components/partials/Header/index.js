@@ -37,7 +37,7 @@ const Index = () => {
                             </Link>
                         </li>
                         <li className="flex items-center justify-center gap-2">
-                            <Link href="/connexion">
+                            <Link href="/auth/login">
                                 <span className="font-semibold">Connexion</span>
                             </Link>
                         </li>
