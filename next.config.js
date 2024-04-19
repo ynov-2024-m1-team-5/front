@@ -10,7 +10,7 @@ const nextConfig = {
             "media.istockphoto.com",
             "images.pexels.com",
             "picsum.photos",
-            "img.freepik.com",
+            "img.freepik.com"
         ],
     },
 };
