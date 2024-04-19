@@ -5,6 +5,7 @@ import { getAllProducts, deleteProductFromCart, updateProductToCart } from "@/se
 import Link from "next/link";
 import Loader from "@/components/UI/Loader";
 import { useContext, useEffect, useState } from "react";
+import { createOrder } from "@/services/api/order.api";
 
 const Page = () => {
     const { token, user } = useContext(UserContext);
@@ -201,7 +202,7 @@ const Page = () => {
                             <div className="text-xl font-semibold">
                                 {totalAmount}€
                             </div>
-                            <button className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
+                            <button onClick={()=>createOrder(user.id)} className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
                                 Paiement
                             </button>
                         </div>
