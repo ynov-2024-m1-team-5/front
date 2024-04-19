@@ -31,26 +31,15 @@
 
     .right_item_1 {
         display: flex;
-        justify-content: space-around;
+        flex-direction: row;
         align-items: center;
         .title_admin {
             color: #0c2d57;
-            font-size: 24px;
+            font-size: 16px;
             font-family: "Arial";
             font-weight: 500;
             word-wrap: break-word;
         }
-        .button {
-            background-color: #fc6736;
-            color: #fff;
-            margin: 10px;
-            font-size: 1rem;
-            padding: 0.4rem;
-            border-radius: 5px;
-        }
-    }
-    .right_item_2 {
-        display: flex;
     }
     .children_container {
         width: 80%;
@@ -76,14 +65,6 @@
     // box-shadow: 0px 10px 60px rgba(225.83, 236.19, 248.63, 0.5);
     border-radius: 30px;
     overflow: auto;
-}
-
-.content_header {
-    width: 90%;
-    margin: auto;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
 }
 
 .button {

@@ -5,7 +5,6 @@ const Index = ({
     type,
     name,
     value,
-    defaultValue,
     isRequired,
     placeholder,
     onChange,
@@ -20,7 +19,6 @@ const Index = ({
                 placeholder={placeholder}
                 type={type}
                 onChange={onChange}
-                defaultValue={defaultValue}
             />
         </div>
     );

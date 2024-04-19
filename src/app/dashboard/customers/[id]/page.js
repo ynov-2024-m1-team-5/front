@@ -1,14 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./page.module.scss";
-import { useParams } from 'next/navigation'
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { getCustomer, updateCustomer } from "@/services/api/auth.api";
+import { getOrdersByCustomerId } from "@/services/api/order.api";
 import Alert from "@/components/UI/Alert";
 import Loader from "@/components/UI/Loader";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 export default function Page() {
     const { id } = useParams();
     const [customer, setCustomer] = useState(null);
+    const [orders, setOrders] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -17,17 +22,17 @@ export default function Page() {
             setLoading(true);
             try {
                 let customer = await getCustomer(id);
+                let orders = await getOrdersByCustomerId(id);
                 if (customer) {
                     setCustomer(customer);
+                    setOrders(orders);
                 }
-            }
-            catch (err) {
-                setError(err)
-            }
-            finally {
+            } catch (err) {
+                setError(err);
+            } finally {
                 setLoading(false);
             }
-        }
+        };
         if (id) {
             fetchCustomer();
         }
@@ -40,7 +45,7 @@ export default function Page() {
 
         setCustomer({
             ...customer,
-            [name]: value
+            [name]: value,
         });
     };
 
@@ -52,6 +57,11 @@ export default function Page() {
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
     }
 
     if (loading) return <Loader />;
@@ -61,10 +71,41 @@ export default function Page() {
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
-                <div className={styles.imgContainer}>
-                    <img src="/nothumbnail.png" alt="" fill />
-                </div>
                 {customer.first_name + " " + customer.last_name}
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th className={styles.tableCell}>Order Id</th>
+                            <th className={styles.tableCell}>Date</th>
+                            <th className={styles.tableCell}>Total Price</th>
+                            <th className={styles.tableCell}>Number of Products</th>
+                            <th className={styles.tableCell}>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orders && orders.length > 0 ? (
+                            orders.map((order) => (
+                                <tr key={order.id}>
+                                    <td className={styles.tableCell}>{order.id}</td>
+                                    <td className={styles.tableCell}>{formatDate(order.date)}</td>
+                                    <td className={styles.tableCell}>{order.totalPrice}</td>
+                                    <td className={styles.tableCell}>{order.cartProducts.length}</td>
+                                    <td className={styles.tableCell}>
+                                        <Link
+                                            href={`/dashboard/orders/${order.id}`}
+                                        >
+                                            <VisibilityIcon className={styles.viewIcon} />
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="5" className={styles.tableCell}>No orders found</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
             <div className={styles.formContainer}>
                 <form onSubmit={handleSubmit} className={styles.form}>

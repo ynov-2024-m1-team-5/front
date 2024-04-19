@@ -4,6 +4,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import ViewInArOutlinedIcon from "@mui/icons-material/ViewInArOutlined";
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import "./index.scss";
 import Link from "next/link";
 
@@ -68,6 +69,22 @@ const Index = () => {
                             onClick={() => handleLinkClick("customers")}
                         >
                             Customers
+                        </Link>
+                    </div>
+                    <ChevronRightIcon />
+                </li>
+                <li
+                    className={`sidebar-list-item ${
+                        selectedLink === "orders" ? "active" : ""
+                    }`}
+                >
+                    <div className="left">
+                        <RequestQuoteIcon />
+                        <Link
+                            href="/dashboard/orders"
+                            onClick={() => handleLinkClick("orders")}
+                        >
+                            Orders
                         </Link>
                     </div>
                     <ChevronRightIcon />
