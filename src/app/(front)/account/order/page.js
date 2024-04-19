@@ -1,39 +1,27 @@
 "use client";
 import TitlePage from "@/components/UI/TitlePage";
 import { UserContext } from "@/context/UserContext";
-import { getAllProducts, deleteProductFromCart, updateProductToCart } from "@/services/api/cart.api";
+import { getAllOrders } from "@/services/api/order.api";
 import Link from "next/link";
 import Loader from "@/components/UI/Loader";
 import { useContext, useEffect, useState } from "react";
-import { createOrder } from "@/services/api/order.api";
+
 
 const Page = () => {
     const { token, user } = useContext(UserContext);
-    const [products, setProducts] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [totalQuantity, setTotalQuantity] = useState(0);
+    const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [deleteFromCartClicked, setDeleteFromCartClicked] = useState(false);
-
     const customer_id = user.id;
 
+    const [refundClick, setRefundClick] = useState(false);
+
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchOrders = async () => {
             setLoading(true);
             try {
-                const productsData = await getAllProducts(customer_id, token);
-                setProducts(productsData);
-
-                const totalCount = productsData.shop.reduce((acc, product) => acc + product.quantitySelected, 0);
-                setTotalQuantity(totalCount);
-
-                const amount = productsData.shop.reduce(
-                    (acc, product) =>
-                        acc + product.sellingPrice * product.quantitySelected,
-                    0
-                );
-                setTotalAmount(amount);
+                const ordersData = await getAllOrders(customer_id, token);
+                console.log("ALL PRODUCTS : ", ordersData);
+                setOrders(ordersData);
 
             } catch (error) {
                 console.error(
@@ -45,78 +33,29 @@ const Page = () => {
             }
         };
 
-        fetchProducts();
+        fetchOrders();
     }, [token, customer_id]);
 
-    const handlerDeleteProduct = async (cartProductId) => {
-        try {
-            let deleteProduct = await deleteProductFromCart(cartProductId, token, customer_id);
-            window.location.reload(true);
-        } catch (err) {
-            setError(err);
+    useEffect(() => {
+        if (refundClick) {
+            refund();
+            setRefundClick(false);
         }
+    }, [refundClick]);
+
+    const refund = async () => {
+
     }
-
-    const handleAddQuantity = async (cartProductId, quantity) => {
-        try {
-            const newQuantity = quantity + 1;
-            const requestData = {
-                quantitySelected: newQuantity
-            };
-            await updateProductToCart(cartProductId, token, requestData);
-            setProducts(prevProducts => {
-                const updatedProducts = prevProducts.shop.map(product => {
-                    if (product.cartProductId === cartProductId) {
-                        return { ...product, quantitySelected: newQuantity };
-                    }
-                    return product;
-                });
-                return { ...prevProducts, shop: updatedProducts };
-            });
-            setTotalAmount(prevTotalAmount => prevTotalAmount + products.shop.find(product => product.cartProductId === cartProductId).sellingPrice);
-            setTotalQuantity(prevTotalProducts => prevTotalProducts + 1);
-        } catch (err) {
-            setError(err);
-        }
-    };
-    
-    const handleSubtractQuantity = async (cartProductId, quantity) => {
-        try {
-            if (quantity > 1) {
-                const newQuantity = quantity - 1;
-                const requestData = {
-                    quantitySelected: newQuantity
-                };
-                await updateProductToCart(cartProductId, token, requestData);
-                setProducts(prevProducts => {
-                    const updatedProducts = prevProducts.shop.map(product => {
-                        if (product.cartProductId === cartProductId) {
-                            return { ...product, quantitySelected: newQuantity };
-                        }
-                        return product;
-                    });
-                    return { ...prevProducts, shop: updatedProducts };
-                });
-                setTotalAmount(prevTotalAmount => prevTotalAmount - products.shop.find(product => product.cartProductId === cartProductId).sellingPrice);
-                setTotalQuantity(prevTotalProducts => prevTotalProducts - 1);
-            }
-        } catch (err) {
-            setError(err);
-        }
-    };
-    
-
-
     if (loading) return <Loader />;
 
     return (
         <div className="container mx-auto">
-            <TitlePage title="Panier" />
+            <TitlePage title="Commandes" />
             <div className="max-w-6xl mx-auto px-4 pb-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2">
-                        {products.shop ? (
-                            products.shop.map((product, index) => (
+                        {orders.data ? (
+                            orders.data.map((order, index) => (
                                 <ul
                                     className="divide-y divide-gray-200"
                                     key={index}
@@ -124,22 +63,22 @@ const Page = () => {
                                     <li
                                         key=""
                                         className="flex items-center justify-between py-4"
-                                    >   
+                                    >
                                         <div className="flex items-center space-x-4">
                                             <img
-                                                alt={product.name}
-                                                src={product.Product.thumbnail}
+                                                src="https://images.pexels.com/photos/2407409/pexels-photo-2407409.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                                alt=""
                                                 className="w-24 h-24 rounded img-thumbnail cover"
                                             ></img>
                                             <Link
                                                 href=""
                                                 className="font-semibold"
                                             >
-                                                {product.name}
+                                                {order.cartProducts}
                                             </Link>
                                         </div>
                                         <div className="flex items-center space-x-4">
-                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50" onClick={() => handleSubtractQuantity(product.cartProductId, product.quantitySelected)}>
+                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50">
                                                 <svg
                                                     width="13"
                                                     height="2"
@@ -156,7 +95,7 @@ const Page = () => {
                                             <span>
                                                 {product.quantitySelected}
                                             </span>
-                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50" onClick={() => handleAddQuantity(product.cartProductId, product.quantitySelected)}>
+                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50">
                                                 <svg
                                                     width="24"
                                                     height="24"
@@ -173,8 +112,9 @@ const Page = () => {
 
                                             <div>{product.sellingPrice} €</div>
                                         </div>
-                                        <button className="text-gray-500 hover:text-gray-700" onClick={() => handlerDeleteProduct(product.cartProductId)}>
-                                            <svg
+                                        <button className="text-gray-500 hover:text-gray-700" onClick={()=>{}}>
+                                            <p>Refund</p>
+                                            {/* <svg
                                                 width="24"
                                                 height="24"
                                                 viewBox="0 0 24 24"
@@ -185,7 +125,7 @@ const Page = () => {
                                                     d="M7.615 20C7.16833 20 6.78733 19.8426 6.472 19.528C6.15733 19.2133 6 18.8323 6 18.385V5.99998H5V4.99998H9V4.22998H15V4.99998H19V5.99998H18V18.385C18 18.845 17.846 19.229 17.538 19.537C17.2293 19.8456 16.845 20 16.385 20H7.615ZM17 5.99998H7V18.385C7 18.5643 7.05767 18.7116 7.173 18.827C7.28833 18.9423 7.43567 19 7.615 19H16.385C16.5383 19 16.6793 18.936 16.808 18.808C16.936 18.6793 17 18.5383 17 18.385V5.99998ZM9.808 17H10.808V7.99998H9.808V17ZM13.192 17H14.192V7.99998H13.192V17Z"
                                                     fill="black"
                                                 />
-                                            </svg>
+                                            </svg> */}
                                         </button>
                                     </li>
                                 </ul>
@@ -194,19 +134,19 @@ const Page = () => {
                             <p>Aucun produit trouvé.</p>
                         )}
                     </div>
-                    <div>
+                    {/* <div>
                         <div className="bg-white shadow-md rounded-md p-6">
                             <h2 className="text-lg font-semibold mb-4">
-                                Total ( {totalQuantity} produits) <br />
+                                Total ( {totalProducts} produits) <br />
                             </h2>
                             <div className="text-xl font-semibold">
                                 {totalAmount}€
                             </div>
-                            <button onClick={()=>createOrder(user.id)} className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
+                            <button className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
                                 Paiement
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
