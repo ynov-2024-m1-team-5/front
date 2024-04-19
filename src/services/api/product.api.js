@@ -13,7 +13,7 @@ export async function getProducts() {
         const data = await res.json();
         return data.products;
     } catch (err) {
-        return err;
+        console.log(err);
     }
 }
 

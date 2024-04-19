@@ -45,13 +45,18 @@ const Index = ({ menu, color, visibleWishlist }) => {
                 )}
 
                 <li>
-                    <a href="/panier">
+                    <a href="/wishlist">
                         <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 50 50"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            height="1em"
+                            fill="currentColor"
+                            aria-labelledby="wish-list-:r0:"
+                            className="zds-icon RC794g X9n9TI DlJ4rT _5Yd-hZ HlZ_Tf I_qHp3"
+                            focusable="false"
+                            aria-hidden="false"
+                            role="img"
+                            data-testid="wishlist"
                         >
                             <title id="wish-list-:r0:">Panier</title>
                             <path

@@ -1,35 +1,49 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "@/assets/styles/style.scss";
-import { DM_Serif_Display, Work_Sans } from "next/font/google";
 import styles from "./page.module.scss";
 import Sidebar from "../../components/UI/Sidebar/index.js";
 import Headash from "../../components/UI/Headash/index.js";
 import { getProducts } from "@/services/api/product.api";
 import { getCustomers } from "@/services/api/auth.api";
-
-const dm_serif_display = DM_Serif_Display({
-    subsets: ["latin"],
-    weight: ["400"],
-});
-
-const work_sans = Work_Sans({
-    subsets: ["latin"],
-    weight: ["400", "700", "600", "900"],
-});
+import { getOrders } from "@/services/api/order.api";
+import { UserContext } from "@/context/UserContext";
+import { useContext } from "react";
+import jwt from "jsonwebtoken";
 
 export default function DashboardLayout({ children }) {
     const [products, setProducts] = useState([]);
     const [customers, setCustomers] = useState([]);
+    const [orders, setOrders] = useState([]);
+
+    const { logout, token } = useContext(UserContext);
+
+
+    const fetchData = async () => {
+        const products = await getProducts();
+        const customers = await getCustomers();
+        const orders = await getOrders();
+
+        setProducts(products);
+        setCustomers(customers);
+        setOrders(orders);
+    };
+
 
     useEffect(() => {
-        const fetchProductsAndCustomers = async () => {
-            const products = await getProducts();
-            const customers = await getCustomers();
-            setProducts(products);
-            setCustomers(customers);
+        const isAdminUser = () => {
+            if (token) {
+                const decodedToken = jwt.decode(token);
+    
+                fetchData();
+                return decodedToken && decodedToken.is_admin;
+            }
+            return false;
         };
-        fetchProductsAndCustomers();
+        if (!isAdminUser()) {
+            logout();
+            console.log("You are not an admin ! You are being redirected to the login page");
+        }
     }, []);
 
     return (
@@ -39,10 +53,10 @@ export default function DashboardLayout({ children }) {
             </div>
             <div className={styles.content}>
                 <div className={styles.right_item_1}>
-                    <h1 className={styles.title_admin}>Hello Admin👋,</h1>
+                    <h1 className={styles.title_admin}>Hello Admin👋, please navigate using the sidebar</h1>
                 </div>
                 <div className={styles.right_item_2}>
-                    <Headash products={products} customers={customers} />
+                    <Headash token={token} products={products} customers={customers} orders={orders} />
                 </div>
                 <div className={styles.right_item_3}>{children}</div>
             </div>

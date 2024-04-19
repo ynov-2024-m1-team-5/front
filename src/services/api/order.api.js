@@ -1,25 +1,52 @@
-
-export const getAllOrders = async (customer_id, token) => {
+export async function getOrders() {
     try {
-        console.log('TATATA : '+customer_id);
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER_CUSTOMER}${customer_id}/orders`,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                cors: "no-cors",
-            }
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}orders`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
         const data = await res.json();
-        return data;
+        return data.data;
     } catch (err) {
+        console.log(err);
         return err;
     }
 }
 
+export async function getOrder(id) {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}orders/${id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+        const data = await res.json();
+        return data.data;
+    }
+    catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
+export async function getOrdersByCustomerId(customer_id) {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}customers/${customer_id}/orders`, 
+        {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+        const data = await res.json();
+        return data.data;
+    }
+    catch (err) {
+        return err
+    }
+}
 
 export async function createOrder(customer_id) {
     try {
@@ -39,6 +66,22 @@ export async function createOrder(customer_id) {
         }
         window.location.href = data.url
     } catch (err) {
+        return err;
+    }
+}
+
+export async function refundOrder(customer_id, id) {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}customers/${customer_id}/orders/${id}/refunded`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+        const data = await res.json();
+        return data.data;
+    } catch (err) {
+        console.log(err);
         return err;
     }
 }

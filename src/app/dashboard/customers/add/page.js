@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./page.module.scss";
-import { createCustomer } from "@/services/api/auth.api";
+import { saveUser } from "@/services/api/auth.api";
 
 const Page = () => {
     const [customer, setCustomer] = useState({
@@ -29,7 +29,7 @@ const Page = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await createCustomer(customer);
+            const response = await saveUser(customer);
             console.log(response);
             // Reset the form
             setCustomer({

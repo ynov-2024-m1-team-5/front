@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
-import Image from "next/image";
 import { deleteCustomer } from "@/services/api/auth.api.js";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ClearIcon from '@mui/icons-material/Clear';
+import ConfirmationModal from "../ConfirmationModal";
 
 const List = ({ customers }) => {
     const handleDeleteCustomer = async (id) => {
@@ -56,30 +58,27 @@ const List = ({ customers }) => {
                                             href={`/dashboard/customers/${customer.id}`}
                                             key={customer.id}
                                         >
-                                            <Image
-                                                src="/view.svg"
-                                                alt="view"
-                                                className={styles.image}
-                                                width={28}
-                                                height={28}
+                                            <VisibilityIcon
+                                                className={styles.viewIcon}
+                                                color="action"
                                             />
                                         </Link>
 
-                                        <button
-                                            onClick={() =>
-                                                handleDeleteCustomer(
-                                                    customer.id
-                                                )
+                                        <ConfirmationModal
+                                            onConfirm={() =>
+                                                handleDeleteCustomer(customer.id)
                                             }
+                                            title={`Delete ${customer.first_name} ${customer.last_name}`}
+                                            message={`Are you sure you want to delete ${customer.first_name} ${customer.last_name}?`}
                                         >
-                                            <Image
-                                                src="/delete.svg"
-                                                alt="view"
-                                                className={styles.image}
-                                                width={28}
-                                                height={28}
-                                            />
-                                        </button>
+                                            {(openModal) => (
+                                                <ClearIcon
+                                                    className={styles.deleteIcon}
+                                                    onClick={openModal}
+                                                    color="action"
+                                                />
+                                            )}
+                                        </ConfirmationModal>
                                     </div>
                                 </td>
                             </tr>
