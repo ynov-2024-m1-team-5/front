@@ -1,5 +1,6 @@
 export const getAllOrders = async (customer_id, token) => {
     try {
+        console.log('TATATA : '+customer_id);
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER_CUSTOMER}${customer_id}/orders`,
             {
