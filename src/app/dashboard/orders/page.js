@@ -7,7 +7,7 @@ import TableOrders from "@/components/UI/TableOrders/index.js";
 import { getOrders } from "@/services/api/order.api.js";
 
 export default async function Page() {
-    const { token, user } = useContext(UserContext);
+    const { token } = useContext(UserContext);
     const orders = await getOrders(token);
 
     if (!orders) {

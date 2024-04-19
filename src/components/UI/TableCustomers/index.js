@@ -5,6 +5,7 @@ import Image from "next/image";
 import { deleteCustomer } from "@/services/api/auth.api.js";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ClearIcon from '@mui/icons-material/Clear';
+import ConfirmationModal from "../ConfirmationModal";
 
 const List = ({ customers }) => {
     const handleDeleteCustomer = async (id) => {
@@ -60,15 +61,25 @@ const List = ({ customers }) => {
                                         >
                                             <VisibilityIcon
                                                 className={styles.viewIcon}
+                                                color="action"
                                             />
                                         </Link>
 
-                                        <ClearIcon
-                                            className={styles.deleteIcon}
-                                            onClick={() =>
+                                        <ConfirmationModal
+                                            onConfirm={() =>
                                                 handleDeleteCustomer(customer.id)
                                             }
-                                        />
+                                            title={`Delete ${customer.first_name} ${customer.last_name}`}
+                                            message={`Are you sure you want to delete ${customer.first_name} ${customer.last_name}?`}
+                                        >
+                                            {(openModal) => (
+                                                <ClearIcon
+                                                    className={styles.deleteIcon}
+                                                    onClick={openModal}
+                                                    color="action"
+                                                />
+                                            )}
+                                        </ConfirmationModal>
                                     </div>
                                 </td>
                             </tr>

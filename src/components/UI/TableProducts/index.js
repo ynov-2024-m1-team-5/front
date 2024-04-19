@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
-import Image from "next/image";
 import { deleteProduct } from "@/services/api/product.api.js";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import ClearIcon from '@mui/icons-material/Clear';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import ClearIcon from "@mui/icons-material/Clear";
+import ConfirmationModal from "../ConfirmationModal";
 
 const List = ({ products }) => {
-
     const handleDeleteProduct = async (id) => {
         try {
             await deleteProduct(id);
@@ -15,28 +14,29 @@ const List = ({ products }) => {
             console.log(err);
         }
     };
-    
+
     return (
-            <table className={styles.table}>
-                <thead className={styles.tableHeader}>
-                    <tr className={styles.tableRow}>
-                        <th className={styles.tableCell}>Product</th>
-                        <th className={styles.tableCell}>Price</th>
-                        <th className={styles.tableCell}>Description</th>
-                        <th className={styles.tableCell}>Stock</th>
-                        <th className={styles.tableCell}>Active</th>
-                        <th className={styles.tableCell}>Actions</th>
-                    </tr>
-                </thead>
-                <tbody className={styles.tableBody}>
-                    {products && products.length > 0 ? (
+        <table className={styles.table}>
+            <thead className={styles.tableHeader}>
+                <tr className={styles.tableRow}>
+                    <th className={styles.tableCell}>Product</th>
+                    <th className={styles.tableCell}>Price</th>
+                    <th className={styles.tableCell}>Description</th>
+                    <th className={styles.tableCell}>Stock</th>
+                    <th className={styles.tableCell}>Active</th>
+                    <th className={styles.tableCell}>Actions</th>
+                </tr>
+            </thead>
+            <tbody className={styles.tableBody}>
+                {products && products.length > 0 ? (
                     products.map((product) => (
                         <tr className={styles.tableRow} key={product.id}>
                             <td className={styles.tableCell}>
                                 <div className={styles.cellWrapper}>
                                     <img
                                         src={
-                                            product.thumbnail || "/nothumbnail.png"
+                                            product.thumbnail ||
+                                            "/nothumbnail.png"
                                         }
                                         alt="thumbnail"
                                         className={styles.image}
@@ -63,27 +63,39 @@ const List = ({ products }) => {
                                         key={product.id}
                                     >
                                         <VisibilityIcon
-                                            className={styles.viewIcon}
+                                            className={styles.actionIcon}
+                                            color="action"
                                         />
                                     </Link>
 
-                                    <ClearIcon
-                                        className={styles.deleteIcon}
-                                        onClick={() => handleDeleteProduct(product.id)}
-                                    />
+                                    <ConfirmationModal
+                                        onConfirm={() =>
+                                            handleDeleteProduct(product.id)
+                                        }
+                                        title={`Delete ${product.name}`}
+                                        message={`Are you sure you want to delete ${product.name}?`}
+                                    >
+                                        {(openModal) => (
+                                            <ClearIcon
+                                                className={styles.deleteIcon}
+                                                onClick={openModal}
+                                                color="action"
+                                            />
+                                        )}
+                                    </ConfirmationModal>
                                 </div>
                             </td>
                         </tr>
                     ))
-                    ) : (
-                        <tr className={styles.tableRow}>
-                            <td colSpan="7" className={styles.tableCell}>
-                                No products found
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                ) : (
+                    <tr className={styles.tableRow}>
+                        <td colSpan="7" className={styles.tableCell}>
+                            No products found
+                        </td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
     );
 };
 

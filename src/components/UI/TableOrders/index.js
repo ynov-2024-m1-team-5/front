@@ -2,9 +2,24 @@ import React from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ClearIcon from "@mui/icons-material/Clear";
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import ConfirmationModal from "../../UI/ConfirmationModal";
+import { refundOrder } from "@/services/api/order.api";
 
 const List = ({ orders }) => {
+    const handleRefundOrder = async (id) => {
+        try {
+            await refundOrder(id);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
     return (
         <table className={styles.table}>
             <thead className={styles.tableHeader}>
@@ -29,10 +44,10 @@ const List = ({ orders }) => {
                                 {order.totalPrice}
                             </td>
                             <td className={styles.tableCell}>
-                                {order.products.length}
+                                {order.cartProducts.length}
                             </td>
                             <td className={styles.tableCell}>{order.method}</td>
-                            <td className={styles.tableCell}>{order.date}</td>
+                            <td className={styles.tableCell}>{formatDate(order.date)}</td>
                             <td className={styles.tableCell}>{order.status}</td>
                             <td className={styles.tableCell}>
                                 <div className={styles.actions}>
@@ -42,12 +57,28 @@ const List = ({ orders }) => {
                                     >
                                         <VisibilityIcon
                                             className={styles.viewIcon}
+                                            color="action"
                                         />
                                     </Link>
-                                    {/* <ClearIcon
-                                            className={styles.deleteIcon}
-                                            onClick={() => handleDeleteOrder(order.id)}
-                                        /> */}
+                                    {order.status === "refund on demand" && (
+                                        <>
+                                            <ConfirmationModal
+                                                onConfirm={() =>
+                                                    handleRefundOrder(order.id)
+                                                }
+                                                title={`Refund order n°${order.id}`}
+                                                message={`Are you sure you want to refund order n°${order.id}?`}
+                                            >
+                                                {(openModal) =>
+                                                    <CurrencyExchangeIcon
+                                                        className={styles.refundIcon}
+                                                        onClick={openModal}
+                                                        color="action"
+                                                    />
+                                                }
+                                            </ConfirmationModal>
+                                        </>
+                                    )}
                                 </div>
                             </td>
                         </tr>

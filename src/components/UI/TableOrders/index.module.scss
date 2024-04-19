@@ -6,25 +6,8 @@
     border-radius: 8px;
 }
 
-.tableBody {
-    width: 100%;
-    overflow: auto;
-    margin: 0;
-}
-
-.tableHeader {
-    position: sticky;
-    top: 0;
-    font-weight: bold;
-    width: 100%;
-    padding: 8px;
-    background-color: white;
-    z-index: 1;
-}
-
 .tableCell {
-    text-align: left;
-    padding: 8px;
+    padding: 16px;
     border-bottom: 1px solid #ccc;
     white-space: nowrap;
     overflow: hidden;
@@ -38,7 +21,10 @@
 }
 
 .tableHeader {
+    position: sticky;
+    top: 0;
     font-weight: bold;
-    width: 100%;
-    padding: 8px;
+    padding: 16px;
+    background-color: white;
+    z-index: 1;
 }
