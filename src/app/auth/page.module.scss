@@ -28,3 +28,21 @@
         }
     }
 }
+
+// media queries for mobile
+@media (max-width: 768px) {
+    .wrapper {
+        margin-top: 120px;
+        flex-direction: column;
+        .left__part {
+            width: 80%;
+            height: 50%;
+            // .form__wrapper {
+            //     width: 100%;
+            // }
+        }
+        .right__part {
+            display: none;
+        }
+    }
+}

@@ -1,17 +1,21 @@
 "use client";
 import TitlePage from "@/components/UI/TitlePage";
 import { UserContext } from "@/context/UserContext";
-import { getAllProducts } from "@/services/api/cart.api";
+import { getAllProducts, deleteProductFromCart, updateProductToCart } from "@/services/api/cart.api";
 import Link from "next/link";
 import Loader from "@/components/UI/Loader";
 import { useContext, useEffect, useState } from "react";
+import { createOrder } from "@/services/api/order.api";
 
 const Page = () => {
     const { token, user } = useContext(UserContext);
     const [products, setProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [totalProducts, setTotalProducts] = useState(0);
+    const [totalQuantity, setTotalQuantity] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [deleteFromCartClicked, setDeleteFromCartClicked] = useState(false);
+
     const customer_id = user.id;
 
     useEffect(() => {
@@ -19,10 +23,11 @@ const Page = () => {
             setLoading(true);
             try {
                 const productsData = await getAllProducts(customer_id, token);
-                console.log("ALL PRODUCTS : ", productsData);
                 setProducts(productsData);
 
-                // Calcul de la somme des produits
+                const totalCount = productsData.shop.reduce((acc, product) => acc + product.quantitySelected, 0);
+                setTotalQuantity(totalCount);
+
                 const amount = productsData.shop.reduce(
                     (acc, product) =>
                         acc + product.sellingPrice * product.quantitySelected,
@@ -30,9 +35,6 @@ const Page = () => {
                 );
                 setTotalAmount(amount);
 
-                // Nombre total de produits
-                const totalCount = productsData.shop.length;
-                setTotalProducts(totalCount);
             } catch (error) {
                 console.error(
                     "Erreur lors de la récupération des produits:",
@@ -46,13 +48,72 @@ const Page = () => {
         fetchProducts();
     }, [token, customer_id]);
 
+    const handlerDeleteProduct = async (cartProductId) => {
+        try {
+            let deleteProduct = await deleteProductFromCart(cartProductId, token, customer_id);
+            window.location.reload(true);
+        } catch (err) {
+            setError(err);
+        }
+    }
+
+    const handleAddQuantity = async (cartProductId, quantity) => {
+        try {
+            const newQuantity = quantity + 1;
+            const requestData = {
+                quantitySelected: newQuantity
+            };
+            await updateProductToCart(cartProductId, token, requestData);
+            setProducts(prevProducts => {
+                const updatedProducts = prevProducts.shop.map(product => {
+                    if (product.cartProductId === cartProductId) {
+                        return { ...product, quantitySelected: newQuantity };
+                    }
+                    return product;
+                });
+                return { ...prevProducts, shop: updatedProducts };
+            });
+            setTotalAmount(prevTotalAmount => prevTotalAmount + products.shop.find(product => product.cartProductId === cartProductId).sellingPrice);
+            setTotalQuantity(prevTotalProducts => prevTotalProducts + 1);
+        } catch (err) {
+            setError(err);
+        }
+    };
+    
+    const handleSubtractQuantity = async (cartProductId, quantity) => {
+        try {
+            if (quantity > 1) {
+                const newQuantity = quantity - 1;
+                const requestData = {
+                    quantitySelected: newQuantity
+                };
+                await updateProductToCart(cartProductId, token, requestData);
+                setProducts(prevProducts => {
+                    const updatedProducts = prevProducts.shop.map(product => {
+                        if (product.cartProductId === cartProductId) {
+                            return { ...product, quantitySelected: newQuantity };
+                        }
+                        return product;
+                    });
+                    return { ...prevProducts, shop: updatedProducts };
+                });
+                setTotalAmount(prevTotalAmount => prevTotalAmount - products.shop.find(product => product.cartProductId === cartProductId).sellingPrice);
+                setTotalQuantity(prevTotalProducts => prevTotalProducts - 1);
+            }
+        } catch (err) {
+            setError(err);
+        }
+    };
+    
+
+
     if (loading) return <Loader />;
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto ">
             <TitlePage title="Panier" />
-            <div className="max-w-6xl mx-auto px-4 pb-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="max-w-6xl mx-auto px-4 pb-4 min-h-96">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 md:grid-cols-3 md:gap-6 sm:grid-cols-2 sm:ap-5 m-0">
                     <div className="md:col-span-2">
                         {products.shop ? (
                             products.shop.map((product, index) => (
@@ -63,11 +124,11 @@ const Page = () => {
                                     <li
                                         key=""
                                         className="flex items-center justify-between py-4"
-                                    >
+                                    >   
                                         <div className="flex items-center space-x-4">
                                             <img
-                                                src="https://images.pexels.com/photos/2407409/pexels-photo-2407409.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt=""
+                                                alt={product.name}
+                                                src={product.Product.thumbnail}
                                                 className="w-24 h-24 rounded img-thumbnail cover"
                                             ></img>
                                             <Link
@@ -78,7 +139,7 @@ const Page = () => {
                                             </Link>
                                         </div>
                                         <div className="flex items-center space-x-4">
-                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50">
+                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50" onClick={() => handleSubtractQuantity(product.cartProductId, product.quantitySelected)}>
                                                 <svg
                                                     width="13"
                                                     height="2"
@@ -95,7 +156,7 @@ const Page = () => {
                                             <span>
                                                 {product.quantitySelected}
                                             </span>
-                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50">
+                                            <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50" onClick={() => handleAddQuantity(product.cartProductId, product.quantitySelected)}>
                                                 <svg
                                                     width="24"
                                                     height="24"
@@ -112,7 +173,7 @@ const Page = () => {
 
                                             <div>{product.sellingPrice} €</div>
                                         </div>
-                                        <button className="text-gray-500 hover:text-gray-700">
+                                        <button className="text-gray-500 hover:text-gray-700" onClick={() => handlerDeleteProduct(product.cartProductId)}>
                                             <svg
                                                 width="24"
                                                 height="24"
@@ -136,12 +197,12 @@ const Page = () => {
                     <div>
                         <div className="bg-white shadow-md rounded-md p-6">
                             <h2 className="text-lg font-semibold mb-4">
-                                Total ( {totalProducts} produits) <br />
+                                Total ( {totalQuantity} produits) <br />
                             </h2>
                             <div className="text-xl font-semibold">
                                 {totalAmount}€
                             </div>
-                            <button className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
+                            <button onClick={()=>createOrder(user.id)} className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
                                 Paiement
                             </button>
                         </div>
