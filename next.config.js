@@ -13,6 +13,7 @@ const nextConfig = {
             "images.pexels.com",
 
             "picsum.photos",
+            "img.freepik.com"
         ],
     },
 };
