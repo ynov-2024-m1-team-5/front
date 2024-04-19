@@ -10,7 +10,7 @@ const Page = () => {
     const { token, user } = useContext(UserContext);
     const [products, setProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [totalProducts, setTotalProducts] = useState(0);
+    const [totalQuantity, setTotalQuantity] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [deleteFromCartClicked, setDeleteFromCartClicked] = useState(false);
@@ -22,10 +22,11 @@ const Page = () => {
             setLoading(true);
             try {
                 const productsData = await getAllProducts(customer_id, token);
-                console.log("ALL PRODUCTS : ", productsData);
                 setProducts(productsData);
 
-                // Calcul de la somme des produits
+                const totalCount = productsData.shop.reduce((acc, product) => acc + product.quantitySelected, 0);
+                setTotalQuantity(totalCount);
+
                 const amount = productsData.shop.reduce(
                     (acc, product) =>
                         acc + product.sellingPrice * product.quantitySelected,
@@ -33,9 +34,6 @@ const Page = () => {
                 );
                 setTotalAmount(amount);
 
-                // Nombre total de produits
-                const totalCount = productsData.shop.length;
-                setTotalProducts(totalCount);
             } catch (error) {
                 console.error(
                     "Erreur lors de la récupération des produits:",
@@ -75,7 +73,7 @@ const Page = () => {
                 return { ...prevProducts, shop: updatedProducts };
             });
             setTotalAmount(prevTotalAmount => prevTotalAmount + products.shop.find(product => product.cartProductId === cartProductId).sellingPrice);
-            setTotalProducts(prevTotalProducts => prevTotalProducts + 1);
+            setTotalQuantity(prevTotalProducts => prevTotalProducts + 1);
         } catch (err) {
             setError(err);
         }
@@ -99,7 +97,7 @@ const Page = () => {
                     return { ...prevProducts, shop: updatedProducts };
                 });
                 setTotalAmount(prevTotalAmount => prevTotalAmount - products.shop.find(product => product.cartProductId === cartProductId).sellingPrice);
-                setTotalProducts(prevTotalProducts => prevTotalProducts - 1);
+                setTotalQuantity(prevTotalProducts => prevTotalProducts - 1);
             }
         } catch (err) {
             setError(err);
@@ -155,7 +153,7 @@ const Page = () => {
                                                 </svg>
                                             </button>
                                             <span>
-                                                {product.thumbnail}
+                                                {product.quantitySelected}
                                             </span>
                                             <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50" onClick={() => handleAddQuantity(product.cartProductId, product.quantitySelected)}>
                                                 <svg
@@ -198,7 +196,7 @@ const Page = () => {
                     <div>
                         <div className="bg-white shadow-md rounded-md p-6">
                             <h2 className="text-lg font-semibold mb-4">
-                                Total ( {totalProducts} produits) <br />
+                                Total ( {totalQuantity} produits) <br />
                             </h2>
                             <div className="text-xl font-semibold">
                                 {totalAmount}€
