@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
-import Image from "next/image";
 import { deleteCustomer } from "@/services/api/auth.api.js";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ClearIcon from '@mui/icons-material/Clear';

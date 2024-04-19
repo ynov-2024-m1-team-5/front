@@ -22,7 +22,7 @@ export default function DashboardLayout({ children }) {
     const fetchData = async () => {
         const products = await getProducts();
         const customers = await getCustomers();
-        const orders = await getOrders(token);
+        const orders = await getOrders();
 
         setProducts(products);
         setCustomers(customers);
@@ -53,7 +53,7 @@ export default function DashboardLayout({ children }) {
             </div>
             <div className={styles.content}>
                 <div className={styles.right_item_1}>
-                    <h1 className={styles.title_admin}>Hello Admin👋,</h1>
+                    <h1 className={styles.title_admin}>Hello Admin👋, please navigate using the sidebar</h1>
                 </div>
                 <div className={styles.right_item_2}>
                     <Headash token={token} products={products} customers={customers} orders={orders} />

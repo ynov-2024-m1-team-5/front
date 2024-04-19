@@ -60,3 +60,33 @@
     cursor: pointer;
     margin-top: 20px;
 }
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.tableCell {
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap;
+    text-wrap: wrap;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableHeader {
+    position: sticky;
+    top: 0;
+    font-weight: bold;
+    padding: 16px;
+    background-color: white;
+    z-index: 1;
+}

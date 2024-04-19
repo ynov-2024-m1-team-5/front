@@ -23,8 +23,6 @@ export async function getOrder(id) {
             },
         });
         const data = await res.json();
-        console.log("data "+ data);
-        console.log("data.data "+ data.data);
         return data.data;
     }
     catch (err) {
@@ -68,6 +66,22 @@ export async function createOrder(customer_id) {
         }
         window.location.href = data.url
     } catch (err) {
+        return err;
+    }
+}
+
+export async function refundOrder(customer_id, id) {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}customers/${customer_id}/orders/${id}/refunded`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+        const data = await res.json();
+        return data.data;
+    } catch (err) {
+        console.log(err);
         return err;
     }
 }
