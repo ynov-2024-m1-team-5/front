@@ -1,13 +1,13 @@
-export async function addFavorite(customerId, productId) {
+export async function addFavorite(customerId, productId, token) {
     try {
         const res = await fetch(
-
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_WISHLIST}api/v1/wishlists/${customerId}/products/add/${productId}`,
 
             {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -21,7 +21,7 @@ export async function addFavorite(customerId, productId) {
 
 // recuperer la liste des favoris
 
-export async function getWishlist(customerId) {
+export async function getWishlist(customerId, token) {
     console.log(customerId);
     try {
         const res = await fetch(
@@ -30,12 +30,13 @@ export async function getWishlist(customerId) {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
         const data = await res.json();
+        console.log("VIDE : " + data);
         return data.products;
-        console.log(data);
     } catch (err) {
         console.error(err);
         // return err;

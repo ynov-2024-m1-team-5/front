@@ -12,7 +12,10 @@ export async function saveUser(user) {
         );
 
         const data = await res.json();
-        console.log("data : ", data.customer_id);
+
+        if (data.success === undefined) {
+            throw new Error(data.detail);
+        }
 
         const newShoppingCart = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT_CART}createCart/`,
@@ -21,18 +24,17 @@ export async function saveUser(user) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({customer_id: data.customer_id})
+                body: JSON.stringify({ customer_id: data.customer_id }),
             }
         );
 
         const resCreateShoppingCart = await newShoppingCart.json();
 
-        console.log("RESPONSE : ", {resCreateShoppingCart});
+        console.log("RESPONSE : ", { resCreateShoppingCart });
 
-        router.push("auth/login");
         return data;
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
@@ -61,7 +63,6 @@ export async function saveUser(user) {
 // }
 
 export async function login(bodyFormData) {
-
     try {
         const formDataString = new URLSearchParams(bodyFormData).toString();
 
@@ -72,7 +73,7 @@ export async function login(bodyFormData) {
             {
                 method: "POST",
                 headers: {
-                    'Accept': "*/*",
+                    Accept: "*/*",
                 },
                 body: bodyFormData,
             }
@@ -80,26 +81,31 @@ export async function login(bodyFormData) {
 
         const data = await res.json();
 
+        if (data.access_token === undefined) {
+            throw new Error(data.detail);
+        }
 
-        console.log(data);
-        if(data != null){
+        if (data != null) {
             window.location.href = "/shop";
         }
         return data.access_token;
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
 export async function getCustomers() {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/`, {
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/`,
+            {
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            }
+        );
         if (!res.ok) {
             throw new Error("HTTP error! status: " + res.status);
         }
@@ -112,9 +118,12 @@ export async function getCustomers() {
 
 export async function getCustomer(id) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/${id}`, {
-            cache: "no-store",
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/${id}`,
+            {
+                cache: "no-store",
+            }
+        );
         const data = await res.json();
         return data;
     } catch (err) {
@@ -124,13 +133,16 @@ export async function getCustomer(id) {
 
 export async function updateCustomer(id, Customer) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(Customer),
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/${id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(Customer),
+            }
+        );
         if (!res.ok) {
             const text = await res.text();
             try {
@@ -141,20 +153,21 @@ export async function updateCustomer(id, Customer) {
             }
         }
         const data = await res.json();
-        
-        return data.access_token;
 
+        return data.access_token;
     } catch (err) {
         return err;
     }
 }
 
-
 export async function deleteCustomer(id) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/${id}`, {
-            method: "DELETE",
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_AUTH}customers/${id}`,
+            {
+                method: "DELETE",
+            }
+        );
         const data = await res.json();
         return data;
     } catch (err) {

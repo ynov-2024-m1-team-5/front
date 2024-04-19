@@ -5,9 +5,16 @@ import Input from "@/components/UI/Input";
 import Title from "@/components/UI/Title";
 import Button from "@/components/UI/Button";
 import Link from "next/link";
-import {saveUser} from "@/services/api/auth.api";
+import { saveUser, login } from "@/services/api/auth.api";
+import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/UserContext";
+import Loader from "@/components/UI/Loader";
 
 const Index = () => {
+    const router = useRouter();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const { setToken } = useContext(UserContext);
     const [userForm, setUserForm] = useState({
         first_name: "",
         last_name: "",
@@ -25,17 +32,50 @@ const Index = () => {
             ...userForm,
             [e.target.name]: e.target.value,
         });
-        
     };
 
-
     // cette fonction permet de soumettre le formulaire d'inscription et de gérer les erreurs et e.preventDefault() permet de ne pas recharger la page
-    const submitRegister = (e) => {
-        saveUser(userForm);
+    const submitRegister = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        try {
+            await register();
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const register = async () => {
+        try {
+            await saveUser(userForm).then(() => {
+                authlogin(userForm);
+            });
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const authlogin = async (userForm) => {
+        const bodyFormData = new FormData();
+        const username = userForm.email;
+        const password = userForm.password;
+        bodyFormData.append("username", username);
+        bodyFormData.append("password", password);
+        try {
+            const token = await login(bodyFormData);
+            setToken(token);
+            localStorage.setItem("token", token);
+            router.push("/shop");
+        } catch (error) {
+            setError(error.message);
+        }
     };
 
     // permet de verifier si le token est présent dans le localstorage et de faire la requête pour récupérer les
+
+    if (loading) return <Loader />;
 
     return (
         <>
@@ -120,6 +160,7 @@ const Index = () => {
                     onChange={(e) => handleChange(e)}
                     value={userForm.password}
                 />
+                {error && <p>{error}</p>}
                 <div className={styles.bottom}>
                     <Button
                         type="submit"
