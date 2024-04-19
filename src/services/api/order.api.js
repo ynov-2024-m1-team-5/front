@@ -1,9 +1,9 @@
-export async function getOrders(token) {
+export async function getOrders() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}orders`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
         });
         const data = await res.json();
@@ -14,12 +14,12 @@ export async function getOrders(token) {
     }
 }
 
-export async function getOrder(token,id) {
+export async function getOrder(id) {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}orders/${id}`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
         });
         const data = await res.json();
@@ -33,13 +33,13 @@ export async function getOrder(token,id) {
     }
 }
 
-export async function getOrdersByCustomerId(customer_id, token) {
+export async function getOrdersByCustomerId(customer_id) {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}customers/${customer_id}/orders`, 
         {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
         });
         const data = await res.json();
@@ -50,17 +50,24 @@ export async function getOrdersByCustomerId(customer_id, token) {
     }
 }
 
-export async function confirmOrder(customer_id, order_id) {
+export async function createOrder(customer_id) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}/${customer_id}/${order_id}`, {
-            method: "PATCH",
+        console.log("customer_id : ", customer_id);
+        const res = await fetch(`https://api-order.onrender.com/api/v1/customers/${customer_id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
         });
+
         const data = await res.json();
-        return data;
-    }
-    catch (err) {
-        return err
+        console.log({data})
+        if (!data.success) {
+            throw new Error(data.message);
+        }
+        window.location.href = data.url
+    } catch (err) {
+        return err;
     }
 }
-
-

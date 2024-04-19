@@ -6,6 +6,7 @@ import Button from "@/components/UI/Button";
 import styles from "./page.module.css";
 import { updateCustomer } from "@/services/api/auth.api";
 import { UserContext } from "@/context/UserContext";
+import Link from "next/link";
 
 const Page = () => {
     const { user } = useContext(UserContext);
@@ -43,6 +44,12 @@ const Page = () => {
     return (
         <>
             <Title title={title} Level="h1" />
+            <Link
+                            href="/account/order"
+                            className="font-semibold text-center"
+                        >    
+                            Mes commandes
+                        </Link>
             {modifying ? (
                 <form
                     className={styles.form}
@@ -133,9 +140,9 @@ const Page = () => {
                     </div>
                 </form>
             ) : (
-                <div className="flow-root rounded-lg border border-gray-100 py-3 w-2/4 m-auto shadow-sm">
-                    <dl className="-my-3 divide-y divide-gray-100 text-sm">
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                <div className="flow-root rounded-lg border border-gray-100 py-3 w-2/4 m-auto shadow-sm min-h-96">
+                    <dl className="-my-3 divide-y divide-gray-100 text-sm min-h-96">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">
                                 Prénom
                             </dt>
@@ -144,21 +151,21 @@ const Page = () => {
                             </dd>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">Nom</dt>
                             <dd className="text-gray-700 sm:col-span-2">
                                 {user.last_name}
                             </dd>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">Email</dt>
                             <dd className="text-gray-700 sm:col-span-2">
                                 {user.email}
                             </dd>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">
                                 Téléphone
                             </dt>
@@ -167,13 +174,13 @@ const Page = () => {
                             </dd>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">Ville</dt>
                             <dd className="text-gray-700 sm:col-span-2">
                                 {user.city}
                             </dd>
                         </div>
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">
                                 Code Postal
                             </dt>
@@ -181,7 +188,7 @@ const Page = () => {
                                 {user.zipcode}
                             </dd>
                         </div>
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 m-4">
                             <dt className="font-medium text-gray-900">Rue</dt>
                             <dd className="text-gray-700 sm:col-span-2">
                                 {user.address}
@@ -194,6 +201,7 @@ const Page = () => {
                             className="btn__primary"
                             handleClick={() => setModifying(true)}
                         />
+                        
                     </div>
                 </div>
             )}

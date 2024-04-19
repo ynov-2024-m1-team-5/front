@@ -7,10 +7,10 @@ const nextConfig = {
             "www.pexels.com",
             "media.cdnws.com",
             "media.deparis.me",
-            "img.freepik.com",
             "media.istockphoto.com",
             "images.pexels.com",
             "picsum.photos",
+            "img.freepik.com"
         ],
     },
 };

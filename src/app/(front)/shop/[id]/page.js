@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { getProduct } from "@/services/api/product.api.js";
@@ -9,8 +9,8 @@ import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
 import Link from "next/link";
-
-// import { getBase64 } from "../../../lib/base64";
+import { addProductToCart } from "@/services/api/cart.api";
+import { UserContext } from "@/context/UserContext";
 
 export default function Page() {
     const { id } = useParams();
@@ -21,6 +21,12 @@ export default function Page() {
     const [slideIndex, setSlideIndex] = useState(0);
     const [showFancyBox, setShowFancyBox] = useState(false);
     const [error, setError] = useState(null);
+    const { token, user } = useContext(UserContext);
+    const customer_id = user.id;
+
+
+    const [addToCartClicked, setAddToCartClicked] = useState(false);
+
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -41,18 +47,48 @@ export default function Page() {
         }
     }, [id]);
 
+    
+    const addProduct = async () => {
+        const productData = {
+            productId: product.id,
+            quantitySelected: 1,
+            sellingPrice: product.price,
+            isOrder: false
+        };
+        try {
+            let add = await addProductToCart(customer_id, token, productData);
+            localStorage.setItem('cartImage', JSON.stringify(updatedProducts));
+            console.log("LOL : "+JSON.stringify(product.id));
+
+        } catch (err) {
+            setError(err);
+        }   
+    }
+
+    useEffect(() => {
+        if (addToCartClicked) {
+            addProduct();
+            setAddToCartClicked(false); // Reset after adding product
+        }
+    }, [addToCartClicked]);
+
+
+
+    
     // useEffect(() => {
-    //     const fetchPlaceholderImage = async () => {
-    //         // const placeholder = await getBase64(
-    //         //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`
-    //         // );
-    //         setPlaceholderImage(placeholder);
-    //     };
-    //     if (product) {
-    //         setSelectedImage(product.thumbnail);
-    //         fetchPlaceholderImage();
+    //     const addProduct = async (productData) => {
+    //         try {
+    //             let add = await addProductToCart(productData, token, customer_id);
+    //         } catch (err) {
+    //             setError(err);
+    //         }
     //     }
-    // }, [product]);
+
+    //     if (customer_id) {
+    //         addProduct();
+    //     }
+    // }, [id]);
+
 
     if (loading) return <Loader />;
 
@@ -85,7 +121,7 @@ export default function Page() {
                 />
             )}
             <BreadCrumb current_page={product?.name} />
-            <div className="flex">
+            <div className="flex flex-wrap m-auto">
                 <div className="thumbnail lg:flex-1">
                     <div
                         onClick={() => setShowFancyBox(true)}
@@ -118,23 +154,6 @@ export default function Page() {
                                 }}
                             />
                         </div>
-                        {/* <div className="item w-[100px] h-[100px]">
-                            <Image
-                                className="cursor-pointer object-cover h-full w-full"
-                                alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.packshot}`}
-                                width={100}
-                                height={100}
-                                onMouseOver={() => {
-                                    setSelectedImage(product.packshot);
-                                    setSlideIndex(1);
-                                }}
-                                onClick={() => {
-                                    setSelectedImage(product.packshot);
-                                    setSlideIndex(1);
-                                }}
-                            />
-                        </div> */}
                     </div>
                 </div>
                 <div className="content lg:flex-1 p-6">
@@ -148,8 +167,9 @@ export default function Page() {
                         <Link
                             className="transition ease-in-out delay-150 mt-4 inline-flex items-center px-4 py-3 text-sm border border-slate-500 font-medium text-center text-slate-500 bg-white hover:bg-slate-500 hover:text-white"
                             href="/panier"
+                            onClick={() => setAddToCartClicked(true)}
                         >
-                            Aouter au panier
+                            Ajouter au panier
                         </Link>
                     </div>
                 </div>
