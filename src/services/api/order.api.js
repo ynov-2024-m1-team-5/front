@@ -1,3 +1,4 @@
+
 export const getAllOrders = async (customer_id, token) => {
     try {
         console.log('TATATA : '+customer_id);
@@ -30,7 +31,7 @@ export async function createOrder(customer_id) {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             }
         });
- 
+
         const data = await res.json();
         console.log({data})
         if (!data.success) {

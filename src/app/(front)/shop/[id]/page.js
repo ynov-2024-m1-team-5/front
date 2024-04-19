@@ -12,8 +12,6 @@ import Link from "next/link";
 import { addProductToCart } from "@/services/api/cart.api";
 import { UserContext } from "@/context/UserContext";
 
-// import { getBase64 } from "../../../lib/base64";
-
 export default function Page() {
     const { id } = useParams();
     const [selectedImage, setSelectedImage] = useState(null);
@@ -48,7 +46,6 @@ export default function Page() {
             fetchProduct();
         }
     }, [id]);
-
 
     
     const addProduct = async () => {
@@ -124,7 +121,7 @@ export default function Page() {
                 />
             )}
             <BreadCrumb current_page={product?.name} />
-            <div className="flex">
+            <div className="flex flex-wrap m-auto">
                 <div className="thumbnail lg:flex-1">
                     <div
                         onClick={() => setShowFancyBox(true)}
@@ -157,23 +154,6 @@ export default function Page() {
                                 }}
                             />
                         </div>
-                        {/* <div className="item w-[100px] h-[100px]">
-                            <Image
-                                className="cursor-pointer object-cover h-full w-full"
-                                alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.packshot}`}
-                                width={100}
-                                height={100}
-                                onMouseOver={() => {
-                                    setSelectedImage(product.packshot);
-                                    setSlideIndex(1);
-                                }}
-                                onClick={() => {
-                                    setSelectedImage(product.packshot);
-                                    setSlideIndex(1);
-                                }}
-                            />
-                        </div> */}
                     </div>
                 </div>
                 <div className="content lg:flex-1 p-6">

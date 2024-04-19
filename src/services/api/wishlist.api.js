@@ -35,7 +35,7 @@ export async function getWishlist(customerId, token) {
             }
         );
         const data = await res.json();
-        console.log("VIDE : " + data);
+        console.log({ data });
         return data.products;
     } catch (err) {
         console.error(err);
