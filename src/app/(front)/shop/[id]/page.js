@@ -25,6 +25,8 @@ export default function Page() {
     const [error, setError] = useState(null);
     const { token, user } = useContext(UserContext);
     const customer_id = user.id;
+    const { updateProductImage } = useProductImageContext();
+
 
     const [addToCartClicked, setAddToCartClicked] = useState(false);
 
@@ -59,11 +61,12 @@ export default function Page() {
         };
         try {
             let add = await addProductToCart(customer_id, token, productData);
+            localStorage.setItem('cartImage', JSON.stringify(updatedProducts));
             console.log("LOL : "+JSON.stringify(product.id));
 
         } catch (err) {
             setError(err);
-        }
+        }   
     }
 
     useEffect(() => {

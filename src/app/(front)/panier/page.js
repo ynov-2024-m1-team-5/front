@@ -125,11 +125,11 @@ const Page = () => {
                                     <li
                                         key=""
                                         className="flex items-center justify-between py-4"
-                                    >
+                                    >   
                                         <div className="flex items-center space-x-4">
                                             <img
-                                                src="https://images.pexels.com/photos/2407409/pexels-photo-2407409.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                                alt=""
+                                                alt={product.name}
+                                                src={product.Product.thumbnail}
                                                 className="w-24 h-24 rounded img-thumbnail cover"
                                             ></img>
                                             <Link
@@ -155,7 +155,7 @@ const Page = () => {
                                                 </svg>
                                             </button>
                                             <span>
-                                                {product.quantitySelected}
+                                                {product.thumbnail}
                                             </span>
                                             <button className="text-gray-500 hover:text-gray-700 disabled:opacity-50" onClick={() => handleAddQuantity(product.cartProductId, product.quantitySelected)}>
                                                 <svg
