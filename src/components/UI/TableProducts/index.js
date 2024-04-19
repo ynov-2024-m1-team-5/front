@@ -3,6 +3,8 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { deleteProduct } from "@/services/api/product.api.js";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const List = ({ products }) => {
 
@@ -15,7 +17,6 @@ const List = ({ products }) => {
     };
     
     return (
-        <div className={styles.wrapper}>
             <table className={styles.table}>
                 <thead className={styles.tableHeader}>
                     <tr className={styles.tableRow}>
@@ -61,28 +62,15 @@ const List = ({ products }) => {
                                         href={`/dashboard/products/${product.id}`}
                                         key={product.id}
                                     >
-                                        <Image
-                                            src="/view.svg"
-                                            alt="view"
-                                            className={styles.image}
-                                            width={28}
-                                            height={28}
+                                        <VisibilityIcon
+                                            className={styles.viewIcon}
                                         />
                                     </Link>
 
-                                    <button
-                                        onClick={() =>
-                                            handleDeleteProduct(product.id)
-                                        }
-                                    >
-                                        <Image
-                                            src="/delete.svg"
-                                            alt="view"
-                                            className={styles.image}
-                                            width={28}
-                                            height={28}
-                                        />
-                                    </button>
+                                    <ClearIcon
+                                        className={styles.deleteIcon}
+                                        onClick={() => handleDeleteProduct(product.id)}
+                                    />
                                 </div>
                             </td>
                         </tr>
@@ -96,7 +84,6 @@ const List = ({ products }) => {
                     )}
                 </tbody>
             </table>
-        </div>
     );
 };
 

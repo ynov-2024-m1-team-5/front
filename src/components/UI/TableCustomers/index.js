@@ -3,6 +3,8 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { deleteCustomer } from "@/services/api/auth.api.js";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const List = ({ customers }) => {
     const handleDeleteCustomer = async (id) => {
@@ -14,7 +16,6 @@ const List = ({ customers }) => {
     };
 
     return (
-        <div className={styles.wrapper}>
             <table className={styles.table}>
                 <thead className={styles.tableHeader}>
                     <tr className={styles.tableRow}>
@@ -57,30 +58,17 @@ const List = ({ customers }) => {
                                             href={`/dashboard/customers/${customer.id}`}
                                             key={customer.id}
                                         >
-                                            <Image
-                                                src="/view.svg"
-                                                alt="view"
-                                                className={styles.image}
-                                                width={28}
-                                                height={28}
+                                            <VisibilityIcon
+                                                className={styles.viewIcon}
                                             />
                                         </Link>
 
-                                        <button
+                                        <ClearIcon
+                                            className={styles.deleteIcon}
                                             onClick={() =>
-                                                handleDeleteCustomer(
-                                                    customer.id
-                                                )
+                                                handleDeleteCustomer(customer.id)
                                             }
-                                        >
-                                            <Image
-                                                src="/delete.svg"
-                                                alt="view"
-                                                className={styles.image}
-                                                width={28}
-                                                height={28}
-                                            />
-                                        </button>
+                                        />
                                     </div>
                                 </td>
                             </tr>
@@ -94,7 +82,6 @@ const List = ({ customers }) => {
                     )}
                 </tbody>
             </table>
-        </div>
     );
 };
 
