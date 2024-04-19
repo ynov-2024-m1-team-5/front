@@ -25,7 +25,6 @@ export default function Page() {
     const [error, setError] = useState(null);
     const { token, user } = useContext(UserContext);
     const customer_id = user.id;
-    const { updateProductImage } = useProductImageContext();
 
 
     const [addToCartClicked, setAddToCartClicked] = useState(false);
