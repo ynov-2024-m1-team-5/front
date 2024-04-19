@@ -6,6 +6,7 @@ import { DM_Serif_Display, Work_Sans, Poppins } from "next/font/google";
 // import { WishlistContextProvider } from "@/context/WishlistContext";
 import { UserContextProvider } from "@/context/UserContext";
 import { WishlistContextProvider } from "@/context/WishlistContext";
+import { StoreProvider } from "@/store";
 
 const dm_serif_display = DM_Serif_Display({
     subsets: ["latin"],
@@ -29,11 +30,12 @@ export default function RootLayout({ children }) {
                 className={`${dm_serif_display.className} ${work_sans.className} ${poppins.className}`}
             >
                 <UserContextProvider>
-                    <WishlistContextProvider>
-                        <main>{children}</main>
-                    </WishlistContextProvider>
+                    <StoreProvider>
+                        <WishlistContextProvider>
+                            <main>{children}</main>
+                        </WishlistContextProvider>
+                    </StoreProvider>
                 </UserContextProvider>
-
             </body>
         </html>
     );

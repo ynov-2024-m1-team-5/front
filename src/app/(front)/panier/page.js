@@ -49,10 +49,10 @@ const Page = () => {
     if (loading) return <Loader />;
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto ">
             <TitlePage title="Panier" />
-            <div className="max-w-6xl mx-auto px-4 pb-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="max-w-6xl mx-auto px-4 pb-4 min-h-96">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 md:grid-cols-3 md:gap-6 sm:grid-cols-2 sm:ap-5 m-0">
                     <div className="md:col-span-2">
                         {products.shop ? (
                             products.shop.map((product, index) => (

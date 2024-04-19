@@ -5,15 +5,24 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useContext, useState } from "react";
 import { addFavorite } from "@/services/api/wishlist.api.js";
 import { UserContext } from "@/context/UserContext";
+import { Store } from "@/store";
 
 const Index = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const { user, token } = useContext(UserContext);
     const customer_id = user.id;
 
+    const { dispatch: ctxDispatch } = useContext(Store);
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
-        addFavorite(customer_id, product.id, token); // Vous devrez peut-être ajuster cette ligne en fonction de la manière dont vous obtenez l'ID de l'utilisateur.
+        addFavorite(customer_id, product.id, token);
+        ctxDispatch({
+            type: "ADD_TO_WISHLIST",
+            payload: {
+                ...product,
+                quantity: 1,
+            },
+        });
     };
 
     return (

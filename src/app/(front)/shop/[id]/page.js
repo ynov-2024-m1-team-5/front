@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { getProduct } from "@/services/api/product.api.js";
@@ -9,8 +9,6 @@ import ProductFancyBox from "@/components/products/ProductFancyBox";
 import Loader from "@/components/UI/Loader";
 import Alert from "@/components/UI/Alert";
 import Link from "next/link";
-
-// import { getBase64 } from "../../../lib/base64";
 
 export default function Page() {
     const { id } = useParams();
@@ -40,19 +38,6 @@ export default function Page() {
             fetchProduct();
         }
     }, [id]);
-
-    // useEffect(() => {
-    //     const fetchPlaceholderImage = async () => {
-    //         // const placeholder = await getBase64(
-    //         //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.thumbnail}`
-    //         // );
-    //         setPlaceholderImage(placeholder);
-    //     };
-    //     if (product) {
-    //         setSelectedImage(product.thumbnail);
-    //         fetchPlaceholderImage();
-    //     }
-    // }, [product]);
 
     if (loading) return <Loader />;
 
@@ -85,7 +70,7 @@ export default function Page() {
                 />
             )}
             <BreadCrumb current_page={product?.name} />
-            <div className="flex">
+            <div className="flex flex-wrap m-auto">
                 <div className="thumbnail lg:flex-1">
                     <div
                         onClick={() => setShowFancyBox(true)}
@@ -118,23 +103,6 @@ export default function Page() {
                                 }}
                             />
                         </div>
-                        {/* <div className="item w-[100px] h-[100px]">
-                            <Image
-                                className="cursor-pointer object-cover h-full w-full"
-                                alt={product.name}
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.packshot}`}
-                                width={100}
-                                height={100}
-                                onMouseOver={() => {
-                                    setSelectedImage(product.packshot);
-                                    setSlideIndex(1);
-                                }}
-                                onClick={() => {
-                                    setSelectedImage(product.packshot);
-                                    setSlideIndex(1);
-                                }}
-                            />
-                        </div> */}
                     </div>
                 </div>
                 <div className="content lg:flex-1 p-6">
