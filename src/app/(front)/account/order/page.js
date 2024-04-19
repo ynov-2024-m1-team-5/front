@@ -142,19 +142,7 @@ const Page = () => {
                             <p>Aucune commande trouvé.</p>
                         )}
                     </div>
-                    {/* <div>
-                        <div className="bg-white shadow-md rounded-md p-6">
-                            <h2 className="text-lg font-semibold mb-4">
-                                Total ( {totalProducts} produits) <br />
-                            </h2>
-                            <div className="text-xl font-semibold">
-                                {totalAmount}€
-                            </div>
-                            <button className="w-full mt-4 bg-black hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded disabled:opacity-50">
-                                Paiement
-                            </button>
-                        </div>
-                    </div> */}
+                
                 </div>
             </div>
             <ToastContainer/>

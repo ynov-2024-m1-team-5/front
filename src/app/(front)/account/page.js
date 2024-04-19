@@ -6,6 +6,7 @@ import Button from "@/components/UI/Button";
 import styles from "./page.module.css";
 import { updateCustomer } from "@/services/api/auth.api";
 import { UserContext } from "@/context/UserContext";
+import Link from "next/link";
 
 const Page = () => {
     const { user } = useContext(UserContext);
@@ -43,6 +44,12 @@ const Page = () => {
     return (
         <>
             <Title title={title} Level="h1" />
+            <Link
+                            href="/account/order"
+                            className="font-semibold text-center"
+                        >    
+                            Mes commandes
+                        </Link>
             {modifying ? (
                 <form
                     className={styles.form}
@@ -194,6 +201,7 @@ const Page = () => {
                             className="btn__primary"
                             handleClick={() => setModifying(true)}
                         />
+                        
                     </div>
                 </div>
             )}
