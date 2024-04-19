@@ -1,13 +1,16 @@
 "use client";
 import Link from "next/link";
-import NavMenu from "@/components/UI/NavMenu";
-import menu from "@/data/menu.json";
 import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
 import jwt from "jsonwebtoken";
+import DropdownMenu from "@/components/UI/DropdownMenu";
+import { Store } from "@/store";
 
 const Index = () => {
-    const { user, isLogged, logout, token } = useContext(UserContext);
+    const { state } = useContext(Store);
+    const { isLogged, token } = useContext(UserContext);
+    const { cart, wishlist } = state;
+    console.log({ wishlist });
 
     // Fonction pour vérifier si l'utilisateur est admin
     const isAdminUser = () => {
@@ -30,23 +33,19 @@ const Index = () => {
                 </li>
 
                 {!isLogged && (
-                    <div className="flex gap-5">
-                        <li className="">
+                    <div className="flex items-center gap-5">
+                        <li>
                             <Link href="/shop">
                                 <span className="">shop</span>
                             </Link>
                         </li>
-                        <li className="flex items-center justify-center gap-2">
-                            <Link href="/auth/login">
-                                <span className="font-semibold">Connexion</span>
-                            </Link>
-                        </li>
+
                         <li className="flex items-center justify-center gap-5">
-                            <a href="/wishlist">
+                            <a href="/wishlist" className="relative">
                                 <svg
                                     viewBox="0 0 24 24"
-                                    width="1em"
-                                    height="1em"
+                                    width="24"
+                                    height="24"
                                     fill="currentColor"
                                     aria-labelledby="wish-list-:r0:"
                                     className="zds-icon RC794g X9n9TI DlJ4rT _5Yd-hZ HlZ_Tf I_qHp3"
@@ -58,11 +57,12 @@ const Index = () => {
                                     <title id="wish-list-:r0:">Wish list</title>
                                     <path d="M17.488 1.11h-.146a6.552 6.552 0 0 0-5.35 2.81A6.57 6.57 0 0 0 6.62 1.116 6.406 6.406 0 0 0 .09 7.428c0 7.672 11.028 15.028 11.497 15.338a.745.745 0 0 0 .826 0c.47-.31 11.496-7.666 11.496-15.351a6.432 6.432 0 0 0-6.42-6.306zM12 21.228C10.018 19.83 1.59 13.525 1.59 7.442c.05-2.68 2.246-4.826 4.934-4.826h.088c2.058-.005 3.93 1.251 4.684 3.155.226.572 1.168.572 1.394 0 .755-1.907 2.677-3.17 4.69-3.16h.02c2.7-.069 4.96 2.118 5.01 4.817 0 6.089-8.429 12.401-10.41 13.8z"></path>
                                 </svg>
+                                <span className="absolute bottom-3 left-3 bg-red-500 text-white w-4 h-4 rounded-full flex justify-center items-center text-xs font-bold"></span>
                             </a>
-                            <a href="/panier">
+                            <a href="/panier" className="relative">
                                 <svg
-                                    width="24"
-                                    height="24"
+                                    width="25"
+                                    height="25"
                                     viewBox="0 0 50 50"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -73,15 +73,24 @@ const Index = () => {
                                         fill="black"
                                     />
                                 </svg>
+                                <span className="absolute bottom-3 left-3 bg-red-500 text-white w-4 h-4 rounded-full flex justify-center items-center text-xs font-bold"></span>
                             </a>
+                        </li>
+                        <li className="flex items-center justify-center gap-2">
+                            <Link
+                                className="rounded-md bg-slate-600 px-4 py-2 text-sm font-medium text-white shadow"
+                                href="/auth/login"
+                            >
+                                <span className="font-semibold">Login</span>
+                            </Link>
                         </li>
                     </div>
                 )}
                 {isLogged && (
-                    <div className="flex gap-5">
+                    <div className="flex gap-5 items-center">
                         <li className="">
                             <Link href="/shop">
-                                <span className="">shop</span>
+                                <span className="text-base">Shop</span>
                             </Link>
                         </li>
                         {isAdminUser() && (
@@ -93,11 +102,11 @@ const Index = () => {
                         )}
 
                         <li className="flex items-center justify-center gap-5">
-                            <a href="/wishlist">
+                            <a href="/wishlist" className="relative">
                                 <svg
                                     viewBox="0 0 24 24"
-                                    width="1em"
-                                    height="1em"
+                                    width="24"
+                                    height="24"
                                     fill="currentColor"
                                     aria-labelledby="wish-list-:r0:"
                                     className="zds-icon RC794g X9n9TI DlJ4rT _5Yd-hZ HlZ_Tf I_qHp3"
@@ -109,11 +118,15 @@ const Index = () => {
                                     <title id="wish-list-:r0:">Wish list</title>
                                     <path d="M17.488 1.11h-.146a6.552 6.552 0 0 0-5.35 2.81A6.57 6.57 0 0 0 6.62 1.116 6.406 6.406 0 0 0 .09 7.428c0 7.672 11.028 15.028 11.497 15.338a.745.745 0 0 0 .826 0c.47-.31 11.496-7.666 11.496-15.351a6.432 6.432 0 0 0-6.42-6.306zM12 21.228C10.018 19.83 1.59 13.525 1.59 7.442c.05-2.68 2.246-4.826 4.934-4.826h.088c2.058-.005 3.93 1.251 4.684 3.155.226.572 1.168.572 1.394 0 .755-1.907 2.677-3.17 4.69-3.16h.02c2.7-.069 4.96 2.118 5.01 4.817 0 6.089-8.429 12.401-10.41 13.8z"></path>
                                 </svg>
+                                <span className="absolute bottom-3 left-3 bg-red-500 text-white w-4 h-4 rounded-full flex justify-center items-center text-xs font-bold">
+                                    {wishlist.wishlistItems.length > 0 &&
+                                        wishlist.wishlistItems.length}
+                                </span>
                             </a>
-                            <a href="/panier">
+                            <a href="/panier" className="relative">
                                 <svg
-                                    width="24"
-                                    height="24"
+                                    width="25"
+                                    height="25"
                                     viewBox="0 0 50 50"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -124,40 +137,12 @@ const Index = () => {
                                         fill="black"
                                     />
                                 </svg>
+                                <span className="absolute bottom-3 left-3 bg-red-500 text-white w-4 h-4 rounded-full flex justify-center items-center text-xs font-bold">
+                                    {cart.cartItems.length > 0 &&
+                                        cart.cartItems.length}
+                                </span>
                             </a>
-                            <Link href="/account">
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <title id="wish-list-:r0:">compte</title>
-                                    <path
-                                        d="M21.6488 19.875C20.2209 17.4065 18.0206 15.6365 15.4528 14.7975C16.723 14.0414 17.7098 12.8892 18.2618 11.5179C18.8137 10.1467 18.9003 8.63211 18.5082 7.20688C18.1161 5.78165 17.267 4.52454 16.0912 3.6286C14.9155 2.73266 13.4782 2.24744 12 2.24744C10.5218 2.24744 9.08451 2.73266 7.90878 3.6286C6.73306 4.52454 5.88394 5.78165 5.49183 7.20688C5.09971 8.63211 5.18629 10.1467 5.73825 11.5179C6.29021 12.8892 7.27704 14.0414 8.5472 14.7975C5.97938 15.6356 3.77907 17.4056 2.35126 19.875C2.2989 19.9604 2.26417 20.0554 2.24912 20.1544C2.23407 20.2534 2.239 20.3544 2.26363 20.4515C2.28825 20.5486 2.33207 20.6397 2.3925 20.7196C2.45293 20.7995 2.52874 20.8664 2.61547 20.9165C2.7022 20.9666 2.79808 20.9988 2.89745 21.0113C2.99683 21.0237 3.0977 21.0161 3.19409 20.989C3.29049 20.9618 3.38047 20.9156 3.45872 20.8531C3.53697 20.7906 3.6019 20.713 3.6497 20.625C5.41595 17.5725 8.53782 15.75 12 15.75C15.4622 15.75 18.5841 17.5725 20.3503 20.625C20.3981 20.713 20.4631 20.7906 20.5413 20.8531C20.6196 20.9156 20.7095 20.9618 20.8059 20.989C20.9023 21.0161 21.0032 21.0237 21.1026 21.0113C21.2019 20.9988 21.2978 20.9666 21.3845 20.9165C21.4713 20.8664 21.5471 20.7995 21.6075 20.7196C21.6679 20.6397 21.7118 20.5486 21.7364 20.4515C21.761 20.3544 21.766 20.2534 21.7509 20.1544C21.7358 20.0554 21.7011 19.9604 21.6488 19.875ZM6.75001 8.99999C6.75001 7.96164 7.05792 6.9466 7.63479 6.08324C8.21167 5.21989 9.03161 4.54698 9.99092 4.14962C10.9502 3.75226 12.0058 3.64829 13.0242 3.85086C14.0426 4.05344 14.9781 4.55345 15.7123 5.28768C16.4465 6.0219 16.9466 6.95736 17.1491 7.97576C17.3517 8.99416 17.2477 10.0498 16.8504 11.0091C16.453 11.9684 15.7801 12.7883 14.9168 13.3652C14.0534 13.9421 13.0384 14.25 12 14.25C10.6081 14.2485 9.27359 13.6949 8.28934 12.7107C7.3051 11.7264 6.7515 10.3919 6.75001 8.99999Z"
-                                        fill="black"
-                                    />
-                                </svg>
-                            </Link>
-                            <button
-                                onClick={() => logout()}
-                                className="text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <title id="wish-list-:r0:">logout</title>
-                                    <path
-                                        d="M5 21C4.45 21 3.97933 20.8043 3.588 20.413C3.19667 20.0217 3.00067 19.5507 3 19V5C3 4.45 3.196 3.97933 3.588 3.588C3.98 3.19667 4.45067 3.00067 5 3H12V5H5V19H12V21H5ZM16 17L14.625 15.55L17.175 13H9V11H17.175L14.625 8.45L16 7L21 12L16 17Z"
-                                        fill="black"
-                                    />
-                                </svg>
-                            </button>
+                            <DropdownMenu />
                         </li>
                     </div>
                 )}
