@@ -82,55 +82,51 @@ const Page = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2">
                         {orders.data ? (
-                            orders.data.map((order, index) => (
+                            orders.data.sort((a,b)=>new Date(a.date) - new Date(b.date)).map((order) => (
                                 <ul
                                     className="divide-y divide-gray-200"
-                                    key={index}
+                                    key={`order-${order.id}`}
                                 >
+                                    <div className="flex items-center justify-between py-4">
+
                                     <h3>N°Commande : {order.id}</h3>
+                                    <div>{order.method}</div>
+                                    <p>Prix total : {order.totalPrice}€</p>
+                                    <div>
+                                    <p>Statut : {order.status}</p>
+                                    { order.status == "paid"&&
+                                            <button className="text-gray-500 hover:text-gray-700" onClick={async ()=>{ await refund(customer_id, order.id)}}>
+                                                <p>Ask Refund</p>
+                                            </button>
+                                            }
+                                            </div>
+                                    </div>
+                                        
                                     {order.cartProducts ? ( 
 
-                                        order.cartProducts.map((product, index) => (
+                                        order.cartProducts.map((cartProd) => (
                                         <li
-                                            key=""
+                                            key={`cardProduct-${cartProd.cartProductId}`}
                                             className="flex items-center justify-between py-4"
                                         >
                                             <div className="flex items-center space-x-4">
                                                 <img
-                                                    src={product.product.thumbnail}
-                                                    alt=""
-                                                    className="w-24 h-24 rounded img-thumbnail cover"
+                                                    src={cartProd.product.thumbnail}
+                                                    alt={cartProd.product.name}
+                                                    className="w-20 h-20 rounded img-thumbnail cover"
                                                 ></img>
                                                 <Link
-                                                    href=""
-                                                    className="font-semibold"
+                                                    href={`/shop/${cartProd.product.id}`}
+                                                    className="text-sm font-semibold"
                                                 >
-                                                    {product.product.name}
+                                                    {cartProd.product.name}
                                                 </Link>
                                             </div>
-                                            <div className="flex items-center space-x-4">
-                                                
-
-                                                <div>{product.sellingPrice} €</div>
+                                            
+                                            <p>Quantité : {cartProd.quantitySelected}</p>
+                                            <div className="flex flex-col items-center space-x-4">
+                                                <p>Prix unitaire : {cartProd.product.price} €</p>
                                             </div>
-                                            { order.status == "paid" && 
-                                            <button className="text-gray-500 hover:text-gray-700" onClick={async ()=>{ await refund(customer_id, order.id)}}>
-                                                <p>Refund</p>
-                                                {/* <svg
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        d="M7.615 20C7.16833 20 6.78733 19.8426 6.472 19.528C6.15733 19.2133 6 18.8323 6 18.385V5.99998H5V4.99998H9V4.22998H15V4.99998H19V5.99998H18V18.385C18 18.845 17.846 19.229 17.538 19.537C17.2293 19.8456 16.845 20 16.385 20H7.615ZM17 5.99998H7V18.385C7 18.5643 7.05767 18.7116 7.173 18.827C7.28833 18.9423 7.43567 19 7.615 19H16.385C16.5383 19 16.6793 18.936 16.808 18.808C16.936 18.6793 17 18.5383 17 18.385V5.99998ZM9.808 17H10.808V7.99998H9.808V17ZM13.192 17H14.192V7.99998H13.192V17Z"
-                                                        fill="black"
-                                                    />
-                                                </svg> */}
-                                            </button>
-                                        }
-                                        
                                         </li>
                                         ))
                                         ) : (

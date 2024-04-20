@@ -44,8 +44,9 @@ const Page = () => {
                 setLoading(false);
             }
         };
-
-        fetchProducts();
+        if(token && customer_id){
+            fetchProducts();
+        }
     }, [token, customer_id]);
 
     const handlerDeleteProduct = async (cartProductId) => {
