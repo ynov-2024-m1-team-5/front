@@ -1,3 +1,25 @@
+export const getAllOrders = async (customer_id, token) => {
+    try {
+        console.log('TATATA : '+customer_id);
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}customers/${customer_id}/orders`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                cors: "no-cors",
+            }
+        );
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        return err;
+    }
+}
+
+
 export async function getOrders() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT_ORDER}orders`, {
